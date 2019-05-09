@@ -10,14 +10,16 @@
 
     $select = "SELECT * FROM tb_usuario WHERE cd_email='$email'";
 
-    $querySelect = mysqli_query($con,$select);
+    $querySelect = $con->query($select);
+    $linhaSelect = $querySelect->fetchAll();
 
-    $linhaSelect = mysqli_num_rows($querySelect);
+    $numLinhas = sizeof($linhaSelect);
 
-    if($linhaSelect != 0){
+    if($numLinhas != 0){
         header("Location: erroCadastro.html");
-        mysqli_close($con);
+        $con = null;
     }
 
+    
     ob_end_flush();
 ?>
