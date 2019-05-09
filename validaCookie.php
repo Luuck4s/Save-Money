@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 date_default_timezone_set("America/Sao_Paulo"); 
 
 if(IsSet($_COOKIE["usuarioEmail"])){
@@ -9,7 +9,6 @@ if(IsSet($_COOKIE["usuarioEmail"])){
 if(IsSet($_COOKIE["usuarioSenha"])){
     $senha = $_COOKIE["usuarioSenha"];
 }
-
 
 if(!(empty($emailLogin) OR empty($senha)))
 {
