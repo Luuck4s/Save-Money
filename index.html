@@ -47,17 +47,17 @@
                     onSubmit="return valida_dados(this)">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="name" type="text" class="validate">
+                            <input id="name" type="text" name="name" class="validate">
                             <label for="name">Nome</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="password" type="password" class="validate">
+                            <input id="password" type="password" name="password" class="validate">
                             <label for="password">Senha</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
-                            <input id="email" type="email" class="validate">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" name="email" class="validate">
                             <label for="email">Email</label>
                         </div>
                     </div>
@@ -230,11 +230,11 @@
         //Formulario
         function valida_dados(formulario) {
             if (formulario.email.value == "") {
-                alert("Voce não digitou um e-mail válido.");
+                alert("Você não digitou um e-mail válido.");
                 return false;
             }
             if (formulario.password.value == "") {
-                alert("Voce não digitou uma senha.");
+                alert("Você não digitou uma senha.");
                 return false;
             }
             return true;
