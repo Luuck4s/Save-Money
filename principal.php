@@ -1,6 +1,7 @@
 <?php 
 ob_start();
 
+include_once "validaCookie.php";
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +26,7 @@ ob_start();
     <div>
         <nav>
             <div class="nav-wrapper">
-                <a href="index.html" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
+                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
@@ -51,7 +52,7 @@ ob_start();
                 <li>
                     <img src="Img/financial_data.svg" alt="undraw savings fail">
                     <div class="caption center-align">
-                        <h3>Olá <?php echo "Lucas"?> </h3>
+                        <h3>Olá, <?php echo $_COOKIE["usuarioNome"]; ?> </h3>
                     </div>
                 </li>
             </ul>
