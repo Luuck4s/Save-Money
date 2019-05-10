@@ -69,6 +69,7 @@ ol {
 }
 .page-footer{
   background-color: #0288d1;
+
 }
 .parallax-container{
   height: 500px;
@@ -76,6 +77,6 @@ ol {
 #index-bannerS{
   height: 150px;;
 }
-
-
-
+.dropdown-content li > a, .dropdown-content li > span { 
+  color: #000000;
+}

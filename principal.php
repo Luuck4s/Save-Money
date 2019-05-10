@@ -24,21 +24,31 @@ include_once "validaCookie.php";
 <body>
     <!--NavBar logado-->
     <div>
+        <!-- Estrutura Dropdown -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="incluir.php?tipo=R">Receita</a></li>
+            <li class="divider"></li>
+            <li><a href="incluir.php?tipo=D">Despesa</a></li>
+        </ul>
         <nav>
             <div class="nav-wrapper">
                 <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
-                    <li><a href="!#">Visualizar Receitas e Despesas</a></li>
-                    <li><a href="!#">Excluir Receita ou Despesa</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons right">add</i></a></li>
+                    <li><a href="!#">Visualizar Receitas e Despesas<i class="material-icons right">pageview</i></a></li>
+                    <li><a href="!#">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a></li>
+                    
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="logOut.php">Sair</a></li>
+                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
+            <li><a href="incluir.php?tipo=D">Adicionar Despesa</a></li>
+            <li><a href="incluir.php?tipo=R">Adicionar Receita</a></li>
             <li><a href="!#">Visualizar Receitas e Despesas</a></li>
             <li><a href="!#">Excluir Receita ou Despesa</a></li>
             <li><a href="logOut.php">Sair</a></li>
@@ -178,14 +188,18 @@ include_once "validaCookie.php";
     </footer>
 
     <script type="text/javascript">
-        //Slides
-        $(document).ready(function () {
-            $('.slider').slider({ full_width: true });
+    //Slides
+    $(document).ready(function() {
+        $('.slider').slider({
+            full_width: true
         });
+    });
+
+    //drop down
+    $(".dropdown-trigger").dropdown();
     </script>
 
 </body>
-
 </html>
 
 <?php
