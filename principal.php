@@ -173,7 +173,7 @@ include_once "validaCookie.php";
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.html">Início</a></li>
+                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
                         <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
                         <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
                     </ul>

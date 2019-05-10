@@ -58,7 +58,7 @@ if($tipo == "R"){
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">title</i>
-                    <textarea id="tituloArea" class="materialize-textarea" name="titulo"></textarea>
+                    <textarea id="tituloArea" class="materialize-textarea"  name="titulo"></textarea>
                     <label for="tituloArea">Nome da <?= $titulo ?></label>
                     <span class="helper-text">O nome da <?= $titulo ?> é para
                         indentificação.</span>
@@ -129,6 +129,12 @@ if($tipo == "R"){
 
             return false;
         }
+        if (formulario.descricaoArea.value.length > 100) {
+
+            document.getElementById("descricaoArea").focus();
+
+            return false;
+        }
         if (formulario.icon_valor.value == "") {
 
             document.getElementById("icon_valor").focus();
@@ -149,7 +155,7 @@ if($tipo == "R"){
     <script>
     //imput descricao
     $(document).ready(function() {
-        $('input#input_text, textarea#textarea2').characterCounter();
+        $('input#input_text, textarea#descricaoArea').characterCounter();
     });
 
     //imput data

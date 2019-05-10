@@ -5,7 +5,7 @@
     setcookie("usuarioSenha");
     setcookie("usuarioNome");
 
-    header ("Location: index.html");
+    header ("Location: index.php");
     
     ob_end_flush();
 ?>

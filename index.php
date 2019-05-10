@@ -1,3 +1,8 @@
+<?php
+    require_once "validaLogin.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,7 +25,7 @@
     <div>
         <nav>
             <div class="nav-wrapper">
-                <a href="index.html" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
+                <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
@@ -203,7 +208,7 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.html">Início</a></li>
+                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
                         <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
                         <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
                     </ul>
