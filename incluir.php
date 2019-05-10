@@ -3,7 +3,6 @@ ob_start();
 
 include_once "validaCookie.php";
 
-$usuarioEmail = $_COOKIE["usuarioEmail"];
 $tipo = $_GET["tipo"];
 
 if($tipo == "R"){
@@ -54,21 +53,23 @@ if($tipo == "R"){
     <!--Formulario de entrada -->
     <div class="container">
         <form class="col s12" action="gravar.php" method="POST" onSubmit="return valida_dados(this)">
+            <!--Valor do tipo de dado -->
+            <input type="hidden" name="tipo" value="<?php echo $tipo; ?>"/>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">title</i>
-                    <textarea id="textarea1" class="materialize-textarea" name="titulo"></textarea>
-                    <label for="textarea1">Nome da <?= $titulo ?></label>
-                    <span class="helper-text" data-error="wrong" data-success="right">O nome da <?= $titulo ?> é para
+                    <textarea id="tituloArea" class="materialize-textarea" name="titulo"></textarea>
+                    <label for="tituloArea">Nome da <?= $titulo ?></label>
+                    <span class="helper-text">O nome da <?= $titulo ?> é para
                         indentificação.</span>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">info</i>
-                    <textarea id="textarea2" class="materialize-textarea" data-length="100" name="descricao"></textarea>
-                    <label for="textarea2">Descrição (Opcional)</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">Você pode adicionar uma pequena descrição do que foi sua <?= $titulo ?>.</span>
+                    <textarea id="descricaoArea" class="materialize-textarea" data-length="100" name="descricao"></textarea>
+                    <label for="descricaoArea">Descrição (Opcional)</label>
+                    <span class="helper-text">Você pode adicionar uma pequena descrição do que foi sua <?= $titulo ?>.</span>
                 </div>
             </div>
             <div class="row">
@@ -80,6 +81,7 @@ if($tipo == "R"){
                     <i class="material-icons prefix">date_range</i>
                     <input id="icon_date" type="text" class="datepicker" name="data">
                     <label for="icon_date">Data</label>
+                    <span class="helper-text" id="dataMessage"></span>
                 </div>
             </div>
             <br><br><br>
@@ -118,18 +120,27 @@ if($tipo == "R"){
         </div>
     </footer>
     <script language="javascript">
+
     function valida_dados(formulario) {
 
-        if (formulario.titulo.value == "") {
-            alert("Você não digitou um titulo.");
+        if (formulario.tituloArea.value == "") {
+
+            document.getElementById("tituloArea").focus();
+
             return false;
         }
-        if (formulario.data.value == "") {
-            alert("Digite uma data.");
+        if (formulario.icon_valor.value == "") {
+
+            document.getElementById("icon_valor").focus();
+
             return false;
         }
-        if (formulario.valor.value == "") {
-            alert("Você não digitou o valor.");
+        if (formulario.icon_date.value == "") {
+
+            document.getElementById("icon_date").focus();
+
+            var messageDataElement = document.getElementById("dataMessage");
+            messageDataElement.innerHTML = "Clique no campo para abrir o calendario.";
             return false;
         }
         return true;

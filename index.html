@@ -43,21 +43,24 @@
                     <i class="medium material-icons">add_box</i>
                 </div>
                 <form class="col s12" action="cadastro.php" method="POST" name="formularioCadastro"
-                    onSubmit="return valida_dados(this)">
+                    onSubmit="return valida_dadosCadastro(this)">
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="name" type="text" name="name" class="validate">
                             <label for="name">Nome</label>
+                            <span class="helper-text" id="messagemNome"></span>
                         </div>
                         <div class="input-field col s6">
                             <input id="password" type="password" name="password" class="validate">
                             <label for="password">Senha</label>
+                            <span class="helper-text" id="messagemSenha"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="email" type="email" name="email" class="validate">
                             <label for="email">Email</label>
+                            <span class="helper-text" id="messagemEmail"></span>
                         </div>
                     </div>
                     <div class="center">
@@ -67,10 +70,10 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="modal-footer">
-            <p class="center">Ao se cadastrar você concorda com os <a href="termosDeUso.html">Termos de Uso e Políticas
+            <div class="modal-footer">
+                <p class="center">Ao se cadastrar você concorda com os <a href="termosDeUso.html">Termos de Uso e Políticas
                     de Privacidade.</a></p>
+            </div>
         </div>
     </div>
 
@@ -85,12 +88,14 @@
                     onSubmit="return valida_dados(this)">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" name="emailLogin">
-                            <label for="email">Email</label>
+                            <input id="emailLogin" type="email" class="validate" name="emailLogin">
+                            <label for="emailLogin">Email</label>
+                            <span class="helper-text" id="messagemEmailLogin"></span>
                         </div>
                         <div class="input-field col s6">
-                            <input id="password" type="password" class="validate" name="senhaLogin">
-                            <label for="password">Senha</label>
+                            <input id="passwordLogin" type="password" class="validate" name="senhaLogin">
+                            <label for="passwordLogin">Senha</label>
+                            <span class="helper-text" id="messagemSenhaLogin"></span>
                         </div>
                     </div>
                     <div class="center">
@@ -228,14 +233,55 @@
         });
         //Formulario
         function valida_dados(formulario) {
+            if (formulario.emailLogin.value == "") {
+
+                document.getElementById("emailLogin").focus();
+
+                var messageEmailElementLogin = document.getElementById("messagemEmailLogin");
+                messageEmailElementLogin.innerHTML = "Digite o seu Email.";
+                
+                return false;
+            }
+            if (formulario.passwordLogin.value == "") {
+
+                document.getElementById("passwordLogin").focus();
+
+                var messageSenhaElementLogin = document.getElementById("messagemSenhaLogin");
+                messageSenhaElementLogin.innerHTML = "Digite sua senha.";
+
+                return false;
+            }
+            return true;
+        }
+        //formulario Cadastro
+        function valida_dadosCadastro(formulario) {
+            if(formulario.name.value == ""){
+
+                document.getElementById("name").focus();
+
+                var messageNomeElement = document.getElementById("messagemNome");
+                messageNomeElement.innerHTML = "É obrigatorio digitar um nome.";
+
+                return false;
+            }
+            if (formulario.password.value == "" || formulario.password.value.length < 4) {
+
+                document.getElementById("password").focus();
+                var messageElement = document.getElementById("messagemSenha");
+                messageElement.innerHTML = "A senha deve ter no minino 4 caracteres.";
+
+                return false;
+            }
             if (formulario.email.value == "") {
-                alert("Você não digitou um e-mail válido.");
+                
+                document.getElementById("email").focus();
+
+                var messageEmailElement = document.getElementById("messagemEmail");
+                messageEmailElement.innerHTML = "O Email é obrigatorio para realizar o cadastro.";
+
                 return false;
             }
-            if (formulario.password.value == "") {
-                alert("Você não digitou uma senha.");
-                return false;
-            }
+            
             return true;
         }
 

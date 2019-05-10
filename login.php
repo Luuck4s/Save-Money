@@ -1,7 +1,7 @@
 <?php
     ob_start();
 
-    include_once "conectaBanco.php";
+    require_once "conectaBanco.php";
 
     $emailLogin = $_POST['emailLogin'];
     $senha = $_POST['senhaLogin'];

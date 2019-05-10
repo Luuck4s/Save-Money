@@ -1,3 +1,16 @@
+<?php 
+include_once "validaCookie.php";
+
+$tipo = $_GET["tipo"];
+
+
+if($tipo == "R"){
+    $titulo = "Receita";
+}else{
+    $titulo = "Despesa";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,7 +25,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
-    <title>Erro</title>
+    <title>Sucesso Cadastro</title>
 </head>
 
 <body>
@@ -20,27 +33,33 @@
     <div>
         <nav>
             <div class="nav-wrapper">
-                <a href="index.html" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png" alt="img logo navbar"></a>
+                <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png" alt="img logo navbar"></a>
             </div>
         </nav>
     </div>
 
-    <!-- Message error -->
-    <div class="container.fluid">
-        <h5 class="center">Ocorreu um erro, você não está logado.</h5>
+    <!-- Message Sucess -->
+    <div class="container">
+        <h5 class="center">Cadastro de <?= $titulo ?> realizado com sucesso.</h5>
+        <h6 class="center">Caso deseja inserir outra <?= $titulo ?>, clique no botão abaixo.</h6>
+        <br>
         <center>
-            <br>
-            <a href="index.html">
-                <button class="btn purple darken-1 waves-effect waves-light">Voltar ao Início
+            <a href="incluir.php?tipo=<?= $tipo ?>">
+                <button class="btn blue darken-3 waves-effect waves-light">Inserir outra <?= $titulo ?>
+                    <i class="material-icons right">add_circle_outline</i>
+                </button>
+            </a><br><br>
+            <a href="index.php">
+                <button class="btn blue darken-3 waves-effect waves-light">Voltar ao Início
                     <i class="material-icons right">home</i>
                 </button>
             </a>
-            <br><br>
+            <br><br><br>
             <div>
-                <img class="responsive-img" src="Img/acess.png" width="500" alt="page erro img fail">
+                <img class="responsive-img" src="Img/all data.svg" width="500" alt="done img fail">
             </div>
         </center>
-
     </div>
 </body>
+
 </html>
