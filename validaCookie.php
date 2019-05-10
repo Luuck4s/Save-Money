@@ -12,7 +12,7 @@ if(IsSet($_COOKIE["usuarioSenha"])){
 
 if(!(empty($emailLogin) OR empty($senha)))
 {
-    include "conectaBanco.php";
+    require "conectaBanco.php";
 
     $select = "SELECT * FROM tb_usuario WHERE cd_email='$emailLogin' AND cd_senha='$senha'";
 

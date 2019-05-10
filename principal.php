@@ -1,7 +1,17 @@
 <?php 
 ob_start();
+date_default_timezone_set("America/Sao_Paulo"); 
 
-include_once "validaCookie.php";
+include "validaCookie.php";
+
+include "verSaldo.php";
+
+
+$arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+'Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
+
+$mesAtual = date("m");
+
 
 ?>
 <!DOCTYPE html>
@@ -62,6 +72,7 @@ include_once "validaCookie.php";
                 <li>
                     <img src="Img/financial_data.svg" alt="undraw savings fail">
                     <div class="caption center-align">
+                        <!--Pega o valor do cookie que esta armazenado o nome usuario -->
                         <h3>Olá, <?php echo $_COOKIE["usuarioNome"]; ?> </h3>
                     </div>
                 </li>
@@ -74,8 +85,8 @@ include_once "validaCookie.php";
         <div id="index-bannerS" class="parallax-container">
             <div class="section no-pad-bot">
                 <div class="container">
-                    <h6 class="light grey-text text-lighten-3">Seu saldo atual sempre será mostrado aqui.</h6>
-                    <h1 class="header center white-text ">R$ <?php echo "580,30" ?></h1>
+                    <h5 class="black-text">Saldo referente ao mês de <?= $arrayMeses[$mesAtual - 1] ?></h5>
+                    <h1 class="light center white-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
                 </div>
             </div>
             <div class="parallax"><img src="Img/wallet.svg" alt="Unsplashed background img 1"></div>
@@ -121,7 +132,7 @@ include_once "validaCookie.php";
     <!--Action part-->
     <div class="container">
         <div class="row">
-            <h4 class="center">Adicione uma Despesa ou uma Receita.</h4>
+            <h4 class="light center">Adicione uma Despesa ou uma Receita.</h4>
         </div>
 
         <div class="row">
