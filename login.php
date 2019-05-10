@@ -6,7 +6,8 @@
     $emailLogin = $_POST['emailLogin'];
     $senha = $_POST['senhaLogin'];
 
-
+    $senha = md5($senha);
+    
     $select = "SELECT * FROM tb_usuario WHERE cd_email='$emailLogin' AND cd_senha='$senha'";
 
     $querySelect = $con->query($select);

@@ -7,6 +7,7 @@
     $email = $_POST['email'];
     $senha = $_POST['password'];
 
+    $senha = md5($senha);
 
     $select = "SELECT * FROM tb_usuario WHERE cd_email='$email'";
 
