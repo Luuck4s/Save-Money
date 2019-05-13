@@ -1,21 +1,37 @@
-<?php 
-/**
- * Arquivo para listar todos as receitas e despesas do usuario para ele escolher qual quer excluir
- */
-include "validaCookie.php";
-include "conectaBanco.php";
+<?php
+    /**
+     * Arquivo para visualizar em tabela as receitas do mes ou todas as receitas
+     */
+    ob_start();
 
-$usuarioEmail = $_COOKIE["usuarioEmail"];
+    date_default_timezone_set("America/Sao_Paulo"); 
 
+    include "validaCookie.php";
+    include "conectaBanco.php";
 
-$select = "SELECT id_valor,titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor,tipo_valor from tb_valores where cd_email_usuario='$usuarioEmail' order by data_valor desc";
+    //Variavel que verifica quais dados ira buscar, T = tudo, M = mes
+    $q = $_GET['q'];
 
-$querySelect = $con->query($select);
-$linhaSelect = $querySelect->fetchAll();
+    $usuarioEmail = $_COOKIE["usuarioEmail"];
+    $mesAtual = date("m");
+    
+    $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
+    
+    if($q == "T"){
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',vl_valor FROM tb_valores 
+        WHERE cd_email_usuario = '$usuarioEmail' ORDER BY data_valor";
 
-$numLinhas = sizeof($linhaSelect);
+        $titulo = "Todas as Despesa e Receitas";
+    }else{
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',vl_valor FROM tb_valores 
+        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual ORDER BY data_valor";
 
+        $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
+    }
 
+    $querySelect = $con->query($select);
+    $linhaSelect = $querySelect->fetchAll();
+    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,7 +47,7 @@ $numLinhas = sizeof($linhaSelect);
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
-    <title>Excluir</title>
+    <title>Visualizar</title>
 </head>
 
 <body>
@@ -68,13 +84,16 @@ $numLinhas = sizeof($linhaSelect);
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons right">add</i></a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i
+                                class="material-icons left">add</i></a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i
+                                class="material-icons left">pageview</i></a>
                     </li>
                     <li>
-                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a>
+                        <a href="excluir.php">Excluir Receita ou Despesa<i
+                                class="material-icons left">delete_sweep</i></a>
                     </li>
 
                 </ul>
@@ -92,20 +111,18 @@ $numLinhas = sizeof($linhaSelect);
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/proffile.svg"></a>
+                    <a href="perfil.php"><img class="circle" src="Img/wallet.svg"></a>
                     <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
                     <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
                 </div>
-            </li>
-            <li>
-                <a href="index.php">Início<i class="material-icons left">home</i></a>
             </li>
             <li>
                 <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i
                         class="material-icons left">add</i></a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i
+                        class="material-icons left">pageview</i></a>
             </li>
             <li>
                 <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
@@ -121,66 +138,58 @@ $numLinhas = sizeof($linhaSelect);
             </li>
         </ul>
     </div>
-    <br><br>
-    <div class="container.fluid">
-        <?php if($numLinhas == 0): ?> <!--Caso nao tenha nenhum registro no banco -->
-        <div>
-            <br>
-            <h5 class="center-align">Está muito vazio aqui, adicione alguma receita ou despesa para poder apagar.</h5>
-            <br>
-            <center>
-                <img class="responsive-img" src="Img/empty.svg" width="500" alt="empty img fail">
-            </center>
-        </div>
-        <?php else: ?>
-        <div class="row">
-            <div>
-                <center>
-                    <h5 class="ligth">Atenção, depois que você excluir não tem como recuperar..</h5>
-                    <br><br>
-                    <img class="responsive-img" src="Img/warning.svg" width="250" alt="warning img fail">
-                </center>
-            </div>
-        <br><br>    
-            <?php foreach($linhaSelect as $dadosRD): //Caso tenha me retorna os valores
 
-            // Conversão para facilitar a leitura do usuario
-            if($dadosRD['tipo_valor'] == 'D'){
+    <!-- Identifica o que esta sendo exibido atraves da varivel titulo que vem do php -->
+    <div>
+        <div id="index-bannerSA" class="parallax-container">
+            <div class="section no-pad-bot">
+                <div class="container">
+                    <h4 class="center-align black-text"><?= $titulo ?></h4>
+                </div>
+            </div>
+            <div class="parallax"><img src="Img/table.svg" alt="Unsplashed background img 1"></div>
+        </div>
+    </div>
+    <div class="container.fluid">
+        <table class="responsive-table striped centered">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach($linhaSelect as $dadosPesquisa):?>
+
+            <?php  // Faz a conversão de tipo da despesa para melhor entendimento
+            if($dadosPesquisa['tipo_valor'] == 'D'){
                 
-                $dadosRD['tipo_valor'] = 'Despesa';
+                $dadosPesquisa['tipo_valor'] = 'Despesa';
 
             }else{
 
-                $dadosRD['tipo_valor'] = 'Receita';
+                $dadosPesquisa['tipo_valor'] = 'Receita';
 
             }
-        ?>
-            <div class="col s12 m3">
-                <div class="card blue darken-2">
-                    <div class="card-content white-text">
-                        <span class="center card-title"><?= $dadosRD['titulo_valor'] ?></span>
-                        <p><i class="material-icons left">info_outline</i><?= $dadosRD['tipo_valor'] ?></p>
-                        <hr>
-                        <p class="light right"><?= $dadosRD['data_valor'] ?></p>
-                        <p><?= $dadosRD['desc_valor'] ?></p>
-                        <p class="center">Valor: R$ <?= number_format($dadosRD['vl_valor'], 2 ,',', '.'); ?></p>
-                        <a href="deletar.php?id=<?=$dadosRD['id_valor']?>"><i class="material-icons right"
-                                style="color:#000;">delete_forever</i></a>
-                        <br>
-                    </div>
-
-                </div>
-            </div>
-
-            <?php 
-            endforeach;
-            endif;
-            $con = null;
-
-        ?>
-        </div>
+            ?>
+                <tr>
+                    <td><?= $dadosPesquisa['titulo_valor'] ?></td>
+                    <td><?= $dadosPesquisa['tipo_valor'] ?></td>
+                    <td><?= $dadosPesquisa['desc_valor'] ?></td>
+                    <td><?= $dadosPesquisa['data_valor'] ?></td>
+                    <td>R$ <?= number_format($dadosPesquisa['vl_valor'], 2 ,',', '.'); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
+
     <br><br><br>
+
+    <!-- Footer-->
     <footer class="page-footer">
         <div class="container">
             <div class="row">
@@ -204,16 +213,24 @@ $numLinhas = sizeof($linhaSelect);
             </div>
         </div>
     </footer>
-    <script type="text/javascript">
-    //drop down
-    $(".dropdown-trigger").dropdown();
 
-    //sidenav
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
+    <script type="text/javascript">
+
+        //dropdown
+        $(".dropdown-trigger").dropdown();
+
+        //sidenav
+        $(document).ready(function() {
+            $('.sidenav').sidenav();
+        });
+
     </script>
 
 </body>
-
 </html>
+<?php 
+
+$con = null;
+ob_end_flush();
+
+?>

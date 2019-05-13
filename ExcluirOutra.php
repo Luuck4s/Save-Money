@@ -116,13 +116,15 @@ include "validaCookie.php";
     </div>    
 
     <script type="text/javascript">
-    //drop down
-    $(".dropdown-trigger").dropdown();
+    
+        //drop down
+        $(".dropdown-trigger").dropdown();
 
-    //sidenav
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
+        //sidenav
+        $(document).ready(function() {
+            $('.sidenav').sidenav();
+        });
+
     </script>
 
 </body>

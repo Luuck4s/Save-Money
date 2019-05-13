@@ -2,6 +2,7 @@
 /**
  * Arquivo utilizando para inserir despesas e receitas no banco.
  */
+    ob_start();
     include_once "validaCookie.php";
     require "conectaBanco.php";
 
@@ -24,4 +25,6 @@
 
     
     header("Location: sucessAdd.php?tipo=$tipo");
+
+    ob_end_flush();
 ?>

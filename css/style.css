@@ -82,6 +82,10 @@ ol {
   height: 150px;
   min-height: 280px;
 }
+#index-bannerSA{
+  height: 150px;
+  min-height: 190px;
+}
 .dropdown-content li > a, .dropdown-content li > span { 
   color: #000000;
 }

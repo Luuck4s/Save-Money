@@ -16,7 +16,8 @@
 
         $mesAtual = date("m");
 
-        $comandoSQL = "SELECT titulo_valor,tipo_valor,desc_valor,data_valor,vl_valor FROM tb_valores WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual";
+        $comandoSQL = "SELECT titulo_valor,tipo_valor,desc_valor,data_valor,vl_valor FROM tb_valores 
+        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual";
 
         $querySelect = $con->query($comandoSQL);
 
