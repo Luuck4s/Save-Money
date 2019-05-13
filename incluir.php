@@ -44,13 +44,15 @@ if($tipo == "R"){
                     <li><a href="principal.php"><i class="material-icons right">arrow_back</i></a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
+                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
                     <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="index.php">Início</a></li>
-            <li><a href="logOut.php">Sair</a></li>
+            <li><a href="index.php">Início<i class="material-icons left">home</i></a></li>
+            <li><a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a></li>
+            <li><a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a></li>
         </ul>
     </div>
     <br><br>

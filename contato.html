@@ -22,85 +22,11 @@
                 <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar</a></li>
-                    <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta</a></li>
-
-                </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar</a></li>
-            <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta</a></li>
+            <li><a href="index.php">Início<i class="material-icons left">home</i></a></li>
         </ul>
-    </div>
-
-    <!--Modal Cadastro-->
-    <div id="cadastro" class="modal">
-        <div class="modal-content">
-            <div class="row">
-                <div class="center">
-                    <i class="medium material-icons">account_box</i>
-                </div>
-                <form class="col s12" action="cadastro.php" method="POST" name="formularioCadastro"
-                    onSubmit="return valida_dados(this)">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="name" type="text" class="validate">
-                            <label for="name">Nome</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="password" type="password" class="validate">
-                            <label for="password">Senha</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                    </div>
-                    <div class="center">
-                        <button class="btn blue waves-effect waves-light">Cadastrar
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <p class="center">Ao se cadastrar você concorda com os <a href="termosDeUso.html">Termos de Uso e Políticas
-                    de Privacidade.</a></p>
-        </div>
-    </div>
-
-    <!--Modal Login-->
-    <div id="login" class="modal">
-        <div class="modal-content">
-            <div class="row">
-                <div class="center">
-                    <i class="medium material-icons">account_circle</i>
-                </div>
-                <form class="col s12" action="login.php" method="POST" name="formularioLogin"
-                    onSubmit="return valida_dados(this)">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="password" type="password" class="validate">
-                            <label for="password">Senha</label>
-                        </div>
-                    </div>
-                    <div class="center">
-                        <button class="btn blue waves-effect waves-light">Acessar
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <!--Container-->
@@ -170,22 +96,6 @@
         $(document).ready(function () {
             $('.slider').slider({ full_width: true });
         });
-        //Modal
-        $(document).ready(function () {
-            $('.modal').modal();
-        });
-        //Formulario
-        function valida_dados(formulario) {
-            if (formulario.email.value == "") {
-                alert("Voce não digitou um e-mail válido.");
-                return false;
-            }
-            if (formulario.password.value == "") {
-                alert("Voce não digitou uma senha.");
-                return false;
-            }
-            return true;
-        }
         
         //Material Box
         $(document).ready(function () {

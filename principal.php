@@ -55,6 +55,7 @@ $mesAtual = date("m");
                     
                 </ul>
                 <ul class="right hide-on-med-and-down">
+                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
                     <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
                 </ul>
             </div>
@@ -64,7 +65,8 @@ $mesAtual = date("m");
             <li><a href="incluir.php?tipo=R">Adicionar Receita</a></li>
             <li><a href="!#">Visualizar Receitas e Despesas</a></li>
             <li><a href="!#">Excluir Receita ou Despesa</a></li>
-            <li><a href="logOut.php">Sair</a></li>
+            <li><a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a></li>
+            <li><a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a></li>
         </ul>
     </div>
 
@@ -104,36 +106,77 @@ $mesAtual = date("m");
         </div>
     </div>
     <br>
-    <!--Ultimas despesas-->
+    <!--Ultima receita-->
     <div class="container">
         <div class="row">
             <div class="col s12 m6">
                 <center>
-                    <span>Última Receita</span>
+                    <span>A sua última receita deste mês</span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">
-                        <span class="center card-title"><?php echo "Salário" ?> </span>
+                    <?php
+                     /**
+                     * Realizando a busca no banco para pegar a ultima receita adicionada no mes atual.
+                     */
+                        require "conectaBanco.php";
+
+                        $usuarioEmail = $_COOKIE["usuarioEmail"];
+
+                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor FROM tb_valores WHERE cd_email_usuario = '$usuarioEmail' AND
+                        extract(month from data_valor) = $mesAtual AND tipo_valor = 'R' ORDER BY id_valor DESC LIMIT 1";
+
+                        $querySelect = $con->query($sql);
+                        $linhaSelect = $querySelect->fetchAll();
+                        
+                        foreach($linhaSelect as $dadosReceita):
+                    ?>
+                        <span class="center card-title"><?= $dadosReceita['titulo_valor'] ?></span>
+                        <p class="light right"><?= $dadosReceita['data_valor'] ?></p>
                         <hr>
-                        <p class="center"><?php echo "05/04/2019" ?> </p>
-                        <p><?php echo "Sem Descrição" ?></p>
+                        <p class="light" ><?= $dadosReceita['desc_valor'] ?></p>
                         <hr>
-                        <p class="center">Valor: R$ <?php echo "1.500,30"; ?></p>
+                        <p class="light center">Valor: R$ <?= number_format($dadosReceita['vl_valor'], 2 ,',', '.'); ?></p>
+                    <?php
+                        endforeach;
+                        $con = null;
+                    ?>
                     </div>
                 </div>
             </div>
             <div class="col s12 m6">
                 <center>
-                    <span>Última Despesa</span>
+                    <span>A sua última despesa deste mês</span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">
-                        <span class="center card-title"><?php echo "Pão" ?> </span>
+                    <?php
+                     /**
+                     * Realizando a busca no banco para pegar a ultima despesa adicionada no mes atual.
+                     */
+                        require "conectaBanco.php";
+
+                        $usuarioEmail = $_COOKIE["usuarioEmail"];
+
+                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor FROM tb_valores 
+                        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'D' 
+                        ORDER BY id_valor DESC LIMIT 1";
+
+                        $querySelect = $con->query($sql);
+                        $linhaSelect = $querySelect->fetchAll();
+                        
+                        foreach($linhaSelect as $dadosDespesa):
+                    ?>
+                        <span class="center card-title"><?= $dadosDespesa['titulo_valor'] ?></span>
+                        <p class="light right"><?= $dadosDespesa['data_valor'] ?></p>
                         <hr>
-                        <p class="center"><?php echo "08/04/2019" ?> </p>
-                        <p><?php echo "Sem Descrição" ?></p>
+                        <p class="light"><?= $dadosDespesa['desc_valor'] ?></p>
                         <hr>
-                        <p class="center">Valor: R$ <?php echo "20,30"; ?></p>
+                        <p class="light center">Valor: R$ <?= number_format($dadosDespesa['vl_valor'], 2 ,',', '.'); ?></p>
+                    <?php
+                        endforeach;
+                        $con = null;
+                    ?>
                     </div>
                 </div>
             </div>
