@@ -25,7 +25,7 @@ if($tipo == "R"){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
-    <title>Sucesso Cadastro</title>
+    <title>Sucesso</title>
 </head>
 
 <body>
@@ -48,10 +48,9 @@ if($tipo == "R"){
                 <button class="btn blue darken-3 waves-effect waves-light">Inserir outra <?= $titulo ?>
                     <i class="material-icons right">add_circle_outline</i>
                 </button>
-            </a><br><br>
+            </a>
             <a href="index.php">
-                <button class="btn blue darken-3 waves-effect waves-light">Voltar ao Início
-                    <i class="material-icons right">home</i>
+                <button class="btn blue darken-3 waves-effect waves-light"><i class="material-icons center">home</i>
                 </button>
             </a>
             <br><br><br>

@@ -57,7 +57,7 @@ $mesAtual = date("m");
                 <ul class="left hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons right">add</i></a></li>
                     <li><a href="!#">Visualizar Receitas e Despesas<i class="material-icons right">pageview</i></a></li>
-                    <li><a href="!#">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a></li>
+                    <li><a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a></li>
                     
                 </ul>
                 <ul class="right hide-on-med-and-down">
@@ -86,7 +86,7 @@ $mesAtual = date("m");
                 <a href="!#">Ver Receitas e Despesas<i class="material-icons left">pageview</i></a>
             </li>
             <li>
-                <a href="!#">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
             </li>
             <li>
                 <div class="divider"></div>
@@ -120,7 +120,7 @@ $mesAtual = date("m");
         <div id="index-bannerS" class="parallax-container">
             <div class="section no-pad-bot">
 
-                <h5 class="center black-text">Saldo de <?= $arrayMeses[$mesAtual - 1] ?></h5>
+                <h5 class="center black-text"><?= $arrayMeses[$mesAtual - 1] ?></h5>
                     
                 <div class="container">
                     <h1 class="light center black-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
@@ -159,7 +159,6 @@ $mesAtual = date("m");
                         <p class="light right"><?= $dadosReceita['data_valor'] ?></p>
                         <hr>
                         <p class="light" ><?= $dadosReceita['desc_valor'] ?></p>
-                        <hr>
                         <p class="light center">Valor: R$ <?= number_format($dadosReceita['vl_valor'], 2 ,',', '.'); ?></p>
                     <?php
                         endforeach;
@@ -195,7 +194,6 @@ $mesAtual = date("m");
                         <p class="light right"><?= $dadosDespesa['data_valor'] ?></p>
                         <hr>
                         <p class="light"><?= $dadosDespesa['desc_valor'] ?></p>
-                        <hr>
                         <p class="light center">Valor: R$ <?= number_format($dadosDespesa['vl_valor'], 2 ,',', '.'); ?></p>
                     <?php
                         endforeach;
