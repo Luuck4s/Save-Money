@@ -39,7 +39,7 @@ if($tipo == "R"){
             <div class="nav-wrapper">
                 <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li><a href="principal.php"><i class="material-icons right">arrow_back</i></a></li>
                 </ul>
@@ -53,6 +53,29 @@ if($tipo == "R"){
             <li><a href="index.php">Início<i class="material-icons left">home</i></a></li>
             <li><a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a></li>
             <li><a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a></li>
+        </ul>
+
+        <!-- sidenav mobile -->
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="Img/specs.svg">
+                    </div>
+                    <a href="perfil.php"><img class="circle" src="Img/proffile.svg"></a>
+                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
+                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                </div>
+            </li>
+            <li>
+                <a href="index.php">Início<i class="material-icons left">home</i></a>
+            </li>
+            <li>
+                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+            </li>
+            <li>
+                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+            </li>
         </ul>
     </div>
     <br><br>

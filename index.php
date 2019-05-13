@@ -35,8 +35,8 @@
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar</a></li>
-            <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta</a></li>
+            <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar<i class="material-icons left">add_box</i></a></li>
+            <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta<i class="material-icons left">account_circle</i></a></li>
         </ul>
     </div>
 

@@ -24,8 +24,11 @@
     
         foreach($linhaSelect as $dados){
             $nome = $dados['nm_usuario'];
+
+            setcookie("nomeCompleto",$nome); // Nome completo 
+
             $firstName = explode(" ", $nome);
-            setcookie("usuarioNome",$firstName[0]);
+            setcookie("usuarioNome",$firstName[0]); // Apenas o primeiro nome
         }
 
         setcookie("usuarioEmail",$emailLogin);
