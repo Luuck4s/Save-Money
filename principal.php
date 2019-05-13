@@ -55,9 +55,9 @@ $mesAtual = date("m");
                         alt="img logo navbar"></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons right">add</i></a></li>
-                    <li><a href="!#">Visualizar Receitas e Despesas<i class="material-icons right">pageview</i></a></li>
-                    <li><a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a></li>
+                    <li><a href="!#">Visualizar Receitas e Despesas<i class="material-icons left">pageview</i></a></li>
+                    <li><a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a></li>
                     
                 </ul>
                 <ul class="right hide-on-med-and-down">
@@ -111,6 +111,12 @@ $mesAtual = date("m");
                         <h3>Olá, <?= $_COOKIE["usuarioNome"]; ?> </h3>
                     </div>
                 </li>
+                <li>
+                    <img src="Img/teasure.svg" alt="undraw savings fail">
+                    <div class="caption center-align">
+                        <h3 class="black-text">Aproveite o Save Money</h3>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -126,7 +132,7 @@ $mesAtual = date("m");
                     <h1 class="light center black-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
                 </div>
             </div>
-            <div class="parallax"><img src="Img/interface.svg" alt="Unsplashed background img 1"></div>
+            <div class="parallax"><img src="Img/tesouro.svg" alt="Unsplashed background img 1"></div>
         </div>
     </div>
     <br>
@@ -135,7 +141,7 @@ $mesAtual = date("m");
         <div class="row">
             <div class="col s12 m6">
                 <center>
-                    <span>A sua última receita deste mês</span>
+                    <span class="light">A sua última receita deste mês</span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">
@@ -169,7 +175,7 @@ $mesAtual = date("m");
             </div>
             <div class="col s12 m6">
                 <center>
-                    <span>A sua última despesa deste mês</span>
+                    <span class="light">A sua última despesa deste mês</span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">

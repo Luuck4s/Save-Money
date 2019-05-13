@@ -41,7 +41,7 @@ if($tipo == "R"){
                         alt="img logo navbar"></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
-                    <li><a href="principal.php"><i class="material-icons right">arrow_back</i></a></li>
+                    <li><a href="principal.php"><i class="material-icons left">arrow_back</i></a></li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
