@@ -1,7 +1,10 @@
 <?php
+/**
+* Arquivo Utilizado para realizar a verificação e cadastro de novos usuarios.
+*/
     ob_start();
 
-    include_once "conectaBanco.php";
+    include_once "conectaBanco.php"; 
 
     $nome = $_POST['name'];
     $email = $_POST['email'];

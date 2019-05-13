@@ -1,6 +1,10 @@
 <?php 
-    ob_start();
+/**
+ * Arquivo de logout 
+ */
 
+    ob_start();
+    
     setcookie("usuarioEmail");
     setcookie("usuarioSenha");
     setcookie("usuarioNome");

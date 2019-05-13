@@ -1,4 +1,9 @@
 <?php
+/**
+ * Verifica se o usuario esta logado, apenas utilizado na pagina inicial para realizar o 
+ * redirecionamento quando o usuario estiver logado.
+ */
+
 ob_start();
 date_default_timezone_set("America/Sao_Paulo"); 
 

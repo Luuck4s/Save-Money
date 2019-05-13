@@ -1,6 +1,8 @@
 <?php
     ob_start();
-
+    /**
+     * Arquivo utilizado para realizar a verificacao e login no sistema.
+     */
     require_once "conectaBanco.php";
 
     $emailLogin = $_POST['emailLogin'];

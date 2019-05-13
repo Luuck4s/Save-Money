@@ -1,6 +1,10 @@
 <?php
 ob_start();
 
+/**
+ * Arquivo utilizado para pegar os valores atraves de um formulario e enviar para realizar a inserção no banco.
+ */
+
 include_once "validaCookie.php";
 
 $tipo = $_GET["tipo"];

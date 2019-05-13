@@ -1,4 +1,8 @@
 <?php
+/**
+ * Realiza uma verificação de cookie para evitar acesso a parginas privadas.
+ */
+
 ob_start();
 date_default_timezone_set("America/Sao_Paulo"); 
 
