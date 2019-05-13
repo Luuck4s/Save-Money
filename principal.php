@@ -73,23 +73,31 @@ $mesAtual = date("m");
                     <img src="Img/financial_data.svg" alt="undraw savings fail">
                     <div class="caption center-align">
                         <!--Pega o valor do cookie que esta armazenado o nome usuario -->
-                        <h3>Olá, <?php echo $_COOKIE["usuarioNome"]; ?> </h3>
+                        <h3>Olá, <?= $_COOKIE["usuarioNome"]; ?> </h3>
+                    </div>
+                </li>
+                <li>
+                    <img src="Img/calculator.svg" alt="finance fail">
+                    <div class="caption left-align">
+                            <h3 class="black-text">Aproveite o Save Money</h3>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 
-    <!--Slide com saldo atual-->
+    <!--parallax com saldo atual-->
     <div>
         <div id="index-bannerS" class="parallax-container">
             <div class="section no-pad-bot">
+
+                <h5 class="center black-text">Saldo de <?= $arrayMeses[$mesAtual - 1] ?></h5>
+                    
                 <div class="container">
-                    <h5 class="black-text">Saldo referente ao mês de <?= $arrayMeses[$mesAtual - 1] ?></h5>
-                    <h1 class="light center white-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
+                    <h1 class="light center black-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
                 </div>
             </div>
-            <div class="parallax"><img src="Img/wallet.svg" alt="Unsplashed background img 1"></div>
+            <div class="parallax"><img src="Img/interface.svg" alt="Unsplashed background img 1"></div>
         </div>
     </div>
     <br>
@@ -141,7 +149,7 @@ $mesAtual = date("m");
                     <div class="center card-content white-text">
                         <span class="card-title">Receitas</span>
                         <hr>
-                        <p>Receita é a entrada monetária, ou seja, toda entrada de monetária é uma receita, por
+                        <p class="light">Receita é a entrada monetária, ou seja, toda entrada de monetária é uma receita, por
                             exemplo seu salário e etc.</p>
                     </div>
                     <div class="card-action">
@@ -158,7 +166,7 @@ $mesAtual = date("m");
                     <div class="center card-content white-text">
                         <span class="card-title">Despesas</span>
                         <hr>
-                        <p>Despesa é a saída monetária, ou seja, toda saída de monetária é uma receita, por exemplo:
+                        <p class="light">Despesa é a saída monetária, ou seja, toda saída de monetária é uma receita, por exemplo:
                             conta de luz, conta de água e etc.</p>
                     </div>
                     <div class="card-action">
