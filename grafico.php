@@ -186,9 +186,16 @@
             <div class="parallax"><img src="Img/graphics.svg" alt="Unsplashed background img 1"></div>
         </div>
     </div>
-    <center>
-        <div class="responsive-img" id="chart_div"></div>
-    </center>
+    <br><br>
+    <div class="container.fluid">
+        <div class="row">
+            <div class="col s12 m4">
+                <center>
+                    <div id="chart_div"></div>
+                </center>
+            </div>
+        </div>
+    </div>
 
     <!--Script do grafico -->
     <script type="text/javascript">
@@ -208,7 +215,7 @@
           ['Despesas', <?= $totalDespesa ?>,'Despesas R$ <?= number_format($totalDespesa, 2 ,',', '.') ?>']
         ]);
 
-        var options = {'title':'<?= $titulo ?>','width':400,'height':400,'is3D':true};
+        var options = {'title':'<?= $titulo ?>','width':360,'height':290,'is3D':true};
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
