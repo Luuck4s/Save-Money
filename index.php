@@ -294,9 +294,11 @@
 </body>
 </html>
 <?php 
-
+/**
+ * Resposta de Erro e confirmação de alteracao de Senha.
+ */
 @$troca = $_GET["troca"];
-
+@$Erro = $_GET["Erro"];
 
 if($troca == 'Y'){
     ?>
@@ -305,6 +307,21 @@ if($troca == 'Y'){
     </script>
     
     <?php 
+}
+
+
+if($Erro == 1){
+?>
+<script>
+    M.toast({html: 'Email ou senha incorretos!!'});
+</script>
+<?php
+}else if ($Erro == 2){
+?>
+<script>
+    M.toast({html: 'Este email já está cadastrado.'});
+</script>
+<?php
 }
 
 

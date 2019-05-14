@@ -19,7 +19,7 @@
 
     if($numLinhas == 0){
         $con = null;
-        header("Location: erroLogin.html");
+        header("Location: index.php?Erro=1");
     }else{
     
         foreach($linhaSelect as $dados){

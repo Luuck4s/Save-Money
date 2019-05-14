@@ -96,7 +96,7 @@ if($tipo == "R"){
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">info</i>
-                    <textarea id="descricaoArea" class="materialize-textarea" data-length="100" name="descricao"></textarea>
+                    <textarea id="descricaoArea" class="materialize-textarea" data-length="60" name="descricao"></textarea>
                     <label for="descricaoArea">Descrição (Opcional)</label>
                     <span class="helper-text">Você pode adicionar uma pequena descrição do que foi sua <?= $titulo ?>.</span>
                 </div>
@@ -158,7 +158,7 @@ if($tipo == "R"){
 
             return false;
         }
-        if (formulario.descricaoArea.value.length > 100) {
+        if (formulario.descricaoArea.value.length > 60) {
 
             document.getElementById("descricaoArea").focus();
 

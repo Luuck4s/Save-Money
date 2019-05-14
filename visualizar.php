@@ -144,10 +144,11 @@
     </div>
     <div class="container.fluid">
         <?php if($numLinhas == 0): ?>
-        <br>
+        <br><br>
         <center>
-            <h4 class="center light">Está tão vazio aqui, adicione algumas receitas e despesas para visualizá las.</h4>
-            <img class="responsive-img" src="Img/empty.svg" width="400" alt="empty img fail">
+            <h5 class="center-align">Está muito vazio aqui, adicione algumas receitas e despesas para visualizá las.</h5>
+            <br>
+            <img class="responsive-img" src="Img/empty.svg" width="500" alt="empty img fail">
         </center>
         <?php else: ?>
     </div>

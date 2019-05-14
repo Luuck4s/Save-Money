@@ -111,7 +111,7 @@ include "validaCookie.php";
 
     <!-- Message Sucess -->
     <div class="container">
-        <h5 class="center">Pronto, o que você escolheu foi excluir com sucesso!</h5>
+        <h5 class="center">Pronto, o que você escolheu foi excluido com sucesso!</h5>
         <br>
         <center>
             <a href="excluir.php">
