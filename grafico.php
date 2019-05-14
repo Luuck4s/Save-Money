@@ -1,4 +1,9 @@
 <?php 
+    /**
+     * Arquivo responsavel por gerar graficos, identifica qual tipo de grafico o usuario quer ver e retornar ele em seguida ou seja, se quiser
+     * visualizar apenas do mes atual ou de todo o tempo.
+     */
+
     ob_start();
     date_default_timezone_set("America/Sao_Paulo"); 
 
@@ -10,33 +15,64 @@
     $mesAtual = date("m");
     $totalReceita = 0;
     $totalDespesa = 0;
+    $maiorReceita = array("valor"=> "0","nome" => "");
+    $maiorDespesa = array("valor"=> "0","nome" => "");
 
+
+    /**
+     * Concertar o nome do maiorReceita e maiorDespesa.
+     */
+
+    /**
+     * Verifica qual "intervalo" de tempo o usuario deseja ver e exibe um titulo 
+     */
     if($tempo == "M"){
         $titulo = "Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}";
     }else{
         $titulo = "Gráfico de Despesas e Receitas";
     }
 
-   
-
+    
+    /**
+     * Realiza a decisao de cada select a ser utilizado
+     */
     if($tempo == "M"){
+        /** Select para o primeiro grafico */
         $sql = "SELECT tipo_valor,vl_valor FROM tb_valores  
         WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual";
+
+        /** Select para o segundo grafico , [pegando a maior despesa] */
+        $sqlMaior = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
+        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'D'";
+
+        /** Select para o segundo grafico , [pegando a maior Receita] */
+        $sqlMaiorReceita = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
+        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'R'";
+
     }else{
+        /*Select para o primeiro grafico todos os valores */
         $sql = "SELECT tipo_valor,vl_valor FROM tb_valores  
             WHERE cd_email_usuario = '$usuarioEmail'";
+
+        /** Select para o segundo grafico , [pegando a maior despesa] */
+        $sqlMaior = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
+        WHERE cd_email_usuario = '$usuarioEmail' AND tipo_valor = 'D'";
+
+        /** Select para o segundo grafico , [pegando a maior Receita] */
+        $sqlMaiorReceita = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
+        WHERE cd_email_usuario = '$usuarioEmail' AND tipo_valor = 'R'";
     }  
 
     
     include "conectaBanco.php";
     
+    /**Executando o select do primeiro grafico */
     $querySelect = $con->query($sql);
     $linhaSelect = $querySelect->fetchAll();
     
     $numLinhas = sizeof($linhaSelect);
 
-    
-
+    #conta para saber o total de Receita e de Despesa
     foreach($linhaSelect as $dado){
         if($dado["tipo_valor"] == "R"){
             $totalReceita += $dado["vl_valor"];
@@ -46,6 +82,26 @@
         }
     }
 
+
+    /** Executando o select do segundo grafico */
+
+    #pegando a maior despesa
+    $querySelectMaior = $con->query($sqlMaior);
+    $linhaSelectMaior = $querySelectMaior->fetchAll();
+
+    foreach($linhaSelectMaior as $DespesaMaior){
+        $maiorDespesa["valor"] = $DespesaMaior["Maior_Valor"];
+    }
+
+    #pegando a maior receita
+    $ReceitaSelectMaior = $con->query($sqlMaiorReceita);
+    $ReceitaLinhaSelect = $ReceitaSelectMaior->fetchAll();
+
+    foreach($ReceitaLinhaSelect as $ReceitaMaior){
+        $maiorReceita["valor"] = $ReceitaMaior["Maior_Valor"];
+    }
+
+    echo $maiorDespesa["nome"],$maiorReceita["nome"];
     $con = null;
     
 ?>
@@ -169,9 +225,9 @@
         </ul>
     </div>
 
-    <!--Grafico -->
-
+    <!-- caso nao tenha nenhum valor -->
     <?php if($numLinhas == 0): ?>
+
     <div>
         <br>
         <h5 class="center-align">Está muito vazio aqui, adicione alguma receita ou despesa para poder visualizar o gráfico.</h5>
@@ -180,28 +236,34 @@
             <img class="responsive-img" src="Img/empty2.svg" width="500" alt="empty img fail">
         </center>
     </div>
+
     <?php else: ?>
+
+    <!-- Parallax -->
     <div>
         <div id="index-bannerS" class="parallax-container">
             <div class="parallax"><img src="Img/graphics.svg" alt="Unsplashed background img 1"></div>
         </div>
     </div>
     <br><br>
+    <!--Graficos -->
     <div class="container.fluid">
         <div class="row">
-            <div class="col s12 m4">
-                <center>
-                    <div id="chart_div"></div>
-                </center>
+            <!-- Grafico 1 -->
+            <div class="col s12 m6">                
+                <div id="chart_div"></div>
+            </div>
+            <!-- Grafico 2 -->
+            <div class="col s12 m6">
+                <div id="piechart" style="width: auto; height: auto; font-size: 20px"></div>
             </div>
         </div>
     </div>
 
-    <!--Script do grafico -->
+    <!--Script do grafico 1 -->
     <script type="text/javascript">
 
       google.charts.load('current', {'packages':['corechart']});
-
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
@@ -215,10 +277,33 @@
           ['Despesas', <?= $totalDespesa ?>,'Despesas R$ <?= number_format($totalDespesa, 2 ,',', '.') ?>']
         ]);
 
-        var options = {'title':'<?= $titulo ?>','width':360,'height':290,'is3D':true};
+        var options = {'title':'<?= $titulo ?>','width':'auto','height':'auto','legend':'left','is3D':true};
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+    }
+    </script>
+    
+    <!--Script grafico 2 -->
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var dataMaior = new google.visualization.DataTable();
+        dataMaior.addColumn('string', 'Topping');
+        dataMaior.addColumn('number', 'Slices');
+        dataMaior.addColumn({type: 'string', role: 'tooltip'});
+        dataMaior.addRows([
+          ['Maior Receita',<?= $maiorReceita["valor"] ?>,'R$ <?= number_format($maiorReceita["valor"], 2 ,',', '.') ?>'],
+          ['Maior Despesa',<?= $maiorDespesa["valor"] ?>,'R$ <?= number_format($maiorDespesa["valor"], 2 ,',', '.') ?>']
+        ]);
+
+        var options = {'title':'Valor da Maior Receita & Despesa','is3D':true};
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(dataMaior, options);
       }
     </script>
     <?php endif; ?>
