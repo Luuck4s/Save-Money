@@ -15,13 +15,9 @@
     $mesAtual = date("m");
     $totalReceita = 0;
     $totalDespesa = 0;
-    $maiorReceita = array("valor"=> "0","nome" => "");
+    $maiorReceita = array("valor"=> "0","nome" => "","data" => "");
     $maiorDespesa = array("valor"=> "0","nome" => "");
 
-
-    /**
-     * Concertar o nome do maiorReceita e maiorDespesa.
-     */
 
     /**
      * Verifica qual "intervalo" de tempo o usuario deseja ver e exibe um titulo 
@@ -41,13 +37,15 @@
         $sql = "SELECT tipo_valor,vl_valor FROM tb_valores  
         WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual";
 
-        /** Select para o segundo grafico , [pegando a maior despesa] */
-        $sqlMaior = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
-        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'D'";
+        /** Select para o segundo grafico , [pegando a maior despesa]  */
+        $sqlMaior = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
+        WHERE tipo_valor = 'D' AND (extract(month from data_valor) = $mesAtual) ) AND cd_email_usuario = '$usuarioEmail'";
 
         /** Select para o segundo grafico , [pegando a maior Receita] */
-        $sqlMaiorReceita = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
-        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'R'";
+        $sqlMaiorReceita = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
+        WHERE tipo_valor = 'R' AND (extract(month from data_valor) = $mesAtual) ) AND cd_email_usuario = '$usuarioEmail'";
+
+        
 
     }else{
         /*Select para o primeiro grafico todos os valores */
@@ -55,12 +53,12 @@
             WHERE cd_email_usuario = '$usuarioEmail'";
 
         /** Select para o segundo grafico , [pegando a maior despesa] */
-        $sqlMaior = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
-        WHERE cd_email_usuario = '$usuarioEmail' AND tipo_valor = 'D'";
+        $sqlMaior = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
+        WHERE tipo_valor = 'D') AND cd_email_usuario = '$usuarioEmail'";
 
         /** Select para o segundo grafico , [pegando a maior Receita] */
-        $sqlMaiorReceita = "SELECT titulo_valor,max(vl_valor) as 'Maior_Valor' FROM tb_valores  
-        WHERE cd_email_usuario = '$usuarioEmail' AND tipo_valor = 'R'";
+        $sqlMaiorReceita = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
+        WHERE tipo_valor = 'R') AND cd_email_usuario = '$usuarioEmail'";
     }  
 
     
@@ -90,7 +88,8 @@
     $linhaSelectMaior = $querySelectMaior->fetchAll();
 
     foreach($linhaSelectMaior as $DespesaMaior){
-        $maiorDespesa["valor"] = $DespesaMaior["Maior_Valor"];
+        $maiorDespesa["nome"] = $DespesaMaior["titulo_valor"];
+        $maiorDespesa["valor"] = $DespesaMaior["vl_valor"];
     }
 
     #pegando a maior receita
@@ -98,10 +97,11 @@
     $ReceitaLinhaSelect = $ReceitaSelectMaior->fetchAll();
 
     foreach($ReceitaLinhaSelect as $ReceitaMaior){
-        $maiorReceita["valor"] = $ReceitaMaior["Maior_Valor"];
+        $maiorReceita["nome"] = $ReceitaMaior["titulo_valor"];
+        $maiorReceita["valor"] = $ReceitaMaior["vl_valor"];
+        $maiorReceita["data"] = $ReceitaMaior["data_valor"];
     }
 
-    echo $maiorDespesa["nome"],$maiorReceita["nome"];
     $con = null;
     
 ?>
@@ -248,7 +248,7 @@
     <br><br>
     <!--Graficos -->
     <div class="container.fluid">
-        <div class="row">
+        <div class="center row">
             <!-- Grafico 1 -->
             <div class="col s12 m6">                
                 <div id="chart_div"></div>
@@ -296,11 +296,11 @@
         dataMaior.addColumn('number', 'Slices');
         dataMaior.addColumn({type: 'string', role: 'tooltip'});
         dataMaior.addRows([
-          ['Maior Receita',<?= $maiorReceita["valor"] ?>,'R$ <?= number_format($maiorReceita["valor"], 2 ,',', '.') ?>'],
-          ['Maior Despesa',<?= $maiorDespesa["valor"] ?>,'R$ <?= number_format($maiorDespesa["valor"], 2 ,',', '.') ?>']
+          ['<?= $maiorReceita["nome"] ?>', <?= $maiorReceita["valor"] ?>,'<?= $maiorReceita["nome"] ?> R$ <?= number_format($maiorReceita["valor"], 2 ,',', '.') ?>'],
+          ['<?= $maiorDespesa["nome"] ?>',<?= $maiorDespesa["valor"] ?>,'<?= $maiorDespesa["nome"] ?> R$ <?= number_format($maiorDespesa["valor"], 2 ,',', '.') ?>']
         ]);
 
-        var options = {'title':'Valor da Maior Receita & Despesa','is3D':true};
+        var options = {'title':'Maior Receita e Despesa','is3D':true};
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(dataMaior, options);
