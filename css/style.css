@@ -89,3 +89,6 @@ ol {
 .dropdown-content li > a, .dropdown-content li > span { 
   color: #000000;
 }
+.input-field label {
+  color: #000;
+}

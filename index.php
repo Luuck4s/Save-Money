@@ -292,5 +292,20 @@
 
     </script>
 </body>
-
 </html>
+<?php 
+
+@$troca = $_GET["troca"];
+
+
+if($troca == 'Y'){
+    ?>
+    <script>
+        M.toast({html: 'Senha Alterada com Sucesso!'});
+    </script>
+    
+    <?php 
+}
+
+
+?>
