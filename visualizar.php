@@ -31,6 +31,7 @@
 
     $querySelect = $con->query($select);
     $linhaSelect = $querySelect->fetchAll();
+    $numLinhas = sizeof($linhaSelect);
     
 ?>
 <!DOCTYPE html>
@@ -117,6 +118,9 @@
                 </div>
             </li>
             <li>
+                <a href="index.php">Início<i class="material-icons left">home</i></a>
+            </li>
+            <li>
                 <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i
                         class="material-icons left">add</i></a>
             </li>
@@ -138,7 +142,15 @@
             </li>
         </ul>
     </div>
-
+    <div class="container.fluid">
+        <?php if($numLinhas == 0): ?>
+        <br>
+        <center>
+            <h4 class="center light">Está tão vazio aqui, adicione algumas receitas e despesas para visualizá las.</h4>
+            <img class="responsive-img" src="Img/empty.svg" width="400" alt="empty img fail">
+        </center>
+        <?php else: ?>
+    </div>
     <!-- Identifica o que esta sendo exibido atraves da varivel titulo que vem do php -->
     <div>
         <div id="index-bannerSA" class="parallax-container">
@@ -186,11 +198,11 @@
             </tbody>
         </table>
     </div>
+        <?php  endif; ?>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <br><br><br>
-
-    <!-- Footer-->
-    <footer class="page-footer">
+     <!-- Footer-->
+     <footer class="page-footer">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">

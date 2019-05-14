@@ -37,6 +37,18 @@ include "validaCookie.php";
             <li><a href="incluir.php?tipo=R">Receita</a></li>
             <li><a href="incluir.php?tipo=D">Despesa</a></li>
         </ul>
+        <!-- Estrutura Dropdown Receitas -->
+        <ul id="dropdown3" class="dropdown-content">
+            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li class="divider"></li>
+            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+        </ul>
+
+        <!-- Estrutura Dropdown Receitas Mobile -->
+        <ul id="dropdown4" class="dropdown-content">
+            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+        </ul>
         <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
@@ -46,7 +58,9 @@ include "validaCookie.php";
                 <ul class="left hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i
                                 class="material-icons right">add</i></a></li>
-                    <li><a href="!#">Visualizar Receitas e Despesas<i class="material-icons right">pageview</i></a></li>
+                    <li>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
+                    </li>
                     <li><a href="excluir.php">Excluir Receita ou Despesa<i
                                 class="material-icons right">delete_sweep</i></a></li>
 
@@ -78,7 +92,7 @@ include "validaCookie.php";
                         class="material-icons left">add</i></a>
             </li>
             <li>
-                <a href="!#">Ver Receitas e Despesas<i class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i class="material-icons left">pageview</i></a>
             </li>
             <li>
                 <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
