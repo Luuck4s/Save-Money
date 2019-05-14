@@ -65,17 +65,29 @@
             <li><a href="incluir.php?tipo=R">Receita</a></li>
             <li><a href="incluir.php?tipo=D">Despesa</a></li>
         </ul>
+
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
             <li class="divider"></li>
             <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
         </ul>
-
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
             <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+        </ul>
+
+        <!-- Estrutura Dropdown Grafico -->
+        <ul id="dropdown5" class="dropdown-content">
+            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
+            <li class="divider"></li>
+            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+        </ul>
+        <!-- Estrutura Dropdown Grafico Mobile -->
+        <ul id="dropdown6" class="dropdown-content">
+            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
+            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
         </ul>
         <!-- NavBar -->
         <nav>
@@ -91,6 +103,9 @@
                     <li>
                         <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i
                                 class="material-icons left">pageview</i></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
                     </li>
                     <li>
                         <a href="excluir.php">Excluir Receita ou Despesa<i
@@ -127,6 +142,9 @@
             <li>
                 <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i
                         class="material-icons left">pageview</i></a>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
             </li>
             <li>
                 <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>

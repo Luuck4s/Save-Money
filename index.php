@@ -316,7 +316,7 @@ if($Erro == 1){
     M.toast({html: 'Email ou senha incorretos!!'});
 </script>
 <?php
-}else if ($Erro == 2){
+}elseif ($Erro == 2){
 ?>
 <script>
     M.toast({html: 'Este email já está cadastrado.'});
