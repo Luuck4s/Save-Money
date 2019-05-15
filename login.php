@@ -10,7 +10,10 @@
 
     $senha = md5($senha);
     
-    $select = "SELECT * FROM tb_usuario WHERE cd_email='$emailLogin' AND cd_senha='$senha'";
+    $select = "SELECT * 
+                    FROM tb_usuario 
+                        WHERE cd_email='$emailLogin' 
+                            AND cd_senha='$senha'";
 
     $querySelect = $con->query($select);
     $linhaSelect = $querySelect->fetchAll();

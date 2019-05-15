@@ -144,7 +144,9 @@
     <div class="row">
         <div class="col s12 m6">
             <div class="icon-block">
-                <h2 class="center blue-text"><i class="material-icons">attach_money</i></h2>
+                <h2 class="center blue-text">
+                    <i class="material-icons">attach_money</i>
+                </h2>
                 <h4 class="center">Tempo é dinheiro</h4>
                 <p class="flow-text">Aqui você vai organizar sua vida financeira e saber para onde está indo seu
                     dinheiro de maneira prática e rapida sem enrolação.
@@ -154,7 +156,9 @@
 
         <div class="col s12 m6">
             <div class="icon-block">
-                <h2 class="center blue-text"><i class="material-icons">phonelink</i></h2>
+                <h2 class="center blue-text">
+                    <i class="material-icons">phonelink</i>
+                </h2>
                 <h4 class="center">Chega de planilhas</h4>
                 <p class="flow-text">O tempo de usar cadernos e planilhas complicadas e bagunçadas acabou, tenha o
                     controle total de suas vida financeira de forma online e a qualquer momento.</p>
@@ -168,7 +172,9 @@
                 <h1 class="header center white-text ">Alcance Suas Metas</h1>
             </div>
         </div>
-        <div class="parallax"><img src="Img/projection.svg" alt="Unsplashed background img 1"></div>
+        <div class="parallax">
+            <img src="Img/projection.svg" alt="Unsplashed background img 1">
+        </div>
     </div>
     <br><br>
 
@@ -194,7 +200,9 @@
                 <h2 class="header center white-text ">Juntos podemos mais.</h2>
             </div>
         </div>
-        <div class="parallax"><img src="Img/productive.svg" alt="Unsplashed background img 1"></div>
+        <div class="parallax">
+            <img src="Img/productive.svg" alt="Unsplashed background img 1">
+        </div>
     </div>
 
     <!-- Footer-->
@@ -208,9 +216,15 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
-                        <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
-                        <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -293,7 +307,7 @@
     </script>
 </body>
 </html>
-<?php 
+    <?php 
 /**
  * Resposta de Erro e confirmação de alteracao de Senha.
  */
@@ -308,21 +322,17 @@ if($troca == 'Y'){
     
     <?php 
 }
-
-
 if($Erro == 1){
-?>
-<script>
-    M.toast({html: 'Email ou senha incorretos!!'});
-</script>
-<?php
+    ?>
+    <script>
+        M.toast({html: 'Email ou senha incorretos!!'});
+    </script>
+    <?php
 }elseif ($Erro == 2){
-?>
-<script>
-    M.toast({html: 'Este email já está cadastrado.'});
-</script>
-<?php
+    ?>
+    <script>
+        M.toast({html: 'Este email já está cadastrado.'});
+    </script>
+    <?php
 }
-
-
-?>
+    ?>

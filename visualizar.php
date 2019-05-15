@@ -13,20 +13,33 @@
     $q = $_GET['q'];
 
     $usuarioEmail = $_COOKIE["usuarioEmail"];
+
     $mesAtual = date("m");
-    
+    $anoAtual = date("Y");
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     
     if($q == "T"){
-        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valorFor',vl_valor FROM tb_valores 
-        WHERE cd_email_usuario = '$usuarioEmail' ORDER BY data_valor DESC";
-
         $titulo = "Todas as Despesa e Receitas";
-    }else{
-        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valorFor',vl_valor FROM tb_valores 
-        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual ORDER BY data_valor DESC";
 
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,
+                        DATE_FORMAT(data_valor,'%d') as 'data_valorD',
+                            DATE_FORMAT(data_valor,'%m') as 'data_valorM',
+                                DATE_FORMAT(data_valor,'%Y') as 'data_valorY',vl_valor 
+                                    FROM tb_valores 
+                                        WHERE cd_email_usuario = '$usuarioEmail' 
+                                            ORDER BY data_valor DESC";
+    }else{
         $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
+
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,
+                        DATE_FORMAT(data_valor,'%d') as 'data_valorD',
+                                DATE_FORMAT(data_valor,'%m') as 'data_valorM',
+                                        DATE_FORMAT(data_valor,'%Y') as 'data_valorY',vl_valor 
+                                            FROM tb_valores 
+                                                WHERE cd_email_usuario = '$usuarioEmail' 
+                                                    AND extract(month from data_valor) = $mesAtual
+                                                        AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                                            ORDER BY data_valor DESC";
     }
 
     $querySelect = $con->query($select);
@@ -52,70 +65,109 @@
 </head>
 
 <body>
-    <!--NavBar logado-->
     <div>
         <!-- Estrutura Dropdown Desk -->
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="incluir.php?tipo=R">Receita</a></li>
+            <li>
+                <a href="incluir.php?tipo=R">Receita</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="incluir.php?tipo=D">Despesa</a></li>
+            <li>
+                <a href="incluir.php?tipo=D">Despesa</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown mobile -->
         <ul id="dropdown2" class="dropdown-content">
-            <li><a href="incluir.php?tipo=R">Receita</a></li>
-            <li><a href="incluir.php?tipo=D">Despesa</a></li>
+            <li>
+                <a href="incluir.php?tipo=R">Receita</a>
+            </li>
+            <li>
+                <a href="incluir.php?tipo=D">Despesa</a>
+            </li>
         </ul>
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Receitas e Despesas</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+            </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
         <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
-                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
-                        alt="img logo navbar"></a>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="principal.php" class="brand-logo center">
+                    <img class="logoNavbar" src="Img/icone.png" alt="img logo navbar">
+                </a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i
-                                class="material-icons left">add</i></a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar
+                            <i class="material-icons left">add</i>
+                        </a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i
-                                class="material-icons left">pageview</i></a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar
+                            <i class="material-icons left">pageview</i>
+                        </a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico
+                            <i class="material-icons left">donut_large</i>
+                        </a>
                     </li>
                     <li>
-                        <a href="excluir.php">Excluir Receita ou Despesa<i
-                                class="material-icons left">delete_sweep</i></a>
+                        <a href="excluir.php">Excluir Receita ou Despesa
+                            <i class="material-icons left">delete_sweep</i>
+                        </a>
                     </li>
 
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
-                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
+                    <li>
+                        <a href="perfil.php">Perfil
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logOut.php">Sair
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -127,36 +179,54 @@
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/wallet.svg"></a>
-                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
-                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/wallet.svg">
+                    </a>
+                    <a href="#!">
+                        <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
+                    </a>
+                    <a href="#!">
+                        <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
+                    </a>
                 </div>
             </li>
             <li>
-                <a href="index.php">Início<i class="material-icons left">home</i></a>
+                <a href="index.php">Início
+                    <i class="material-icons left">home</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i
-                        class="material-icons left">add</i></a>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
+                    <i class="material-icons left">add</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i
-                        class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
+                    <i class="material-icons left">pageview</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
+                </a>
             </li>
             <li>
-                <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                <a href="excluir.php">Excluir Receita ou Despesa
+                    <i class="material-icons left">delete_sweep</i>
+                </a>
             </li>
             <li>
                 <div class="divider"></div>
             </li>
             <li>
-                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+                <a href="perfil.php">Perfil
+                    <i class="material-icons left">account_circle</i>
+                </a>
             </li>
             <li>
-                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+                <a href="logOut.php">Sair
+                    <i class="material-icons left">exit_to_app</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -164,8 +234,7 @@
         <?php if($numLinhas == 0): ?>
         <br><br>
         <center>
-            <h5 class="center-align">Está muito vazio aqui, adicione algumas receitas e despesas para visualizá las.</h5>
-            <br>
+            <h5 class="center-align">Está muito vazio aqui, adicione algumas receitas e despesas para visualizá las.</h5><br>
             <img class="responsive-img" src="Img/empty.svg" width="500" alt="empty img fail">
         </center>
         <?php else: ?>
@@ -178,7 +247,9 @@
                     <h4 class="center-align black-text"><?= $titulo ?></h4>
                 </div>
             </div>
-            <div class="parallax"><img src="Img/table.svg" alt="Unsplashed background img 1"></div>
+            <div class="parallax">
+                <img src="Img/table.svg" alt="Unsplashed background img 1">
+            </div>
         </div>
     </div>
     <div class="container.fluid">
@@ -210,7 +281,7 @@
                     <td><?= $dadosPesquisa['titulo_valor'] ?></td>
                     <td><?= $dadosPesquisa['tipo_valor'] ?></td>
                     <td><?= $dadosPesquisa['desc_valor'] ?></td>
-                    <td><?= $dadosPesquisa['data_valorFor'] ?></td>
+                    <td><?= "{$dadosPesquisa['data_valorD']} / {$arrayMeses[$dadosPesquisa["data_valorM"] - 1]} / {$dadosPesquisa["data_valorY"]}" ?></td>
                     <td>R$ <?= number_format($dadosPesquisa['vl_valor'], 2 ,',', '.'); ?></td>
                 </tr>
                 <?php endforeach; ?>
@@ -231,9 +302,15 @@
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
-                        <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
-                        <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
                     </ul>
                 </div>
             </div>

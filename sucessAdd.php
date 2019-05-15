@@ -50,7 +50,8 @@ if($tipo == "R"){
                 </button>
             </a>
             <a href="index.php">
-                <button class="btn blue darken-3 waves-effect waves-light"><i class="material-icons center">home</i>
+                <button class="btn blue darken-3 waves-effect waves-light">
+                    <i class="material-icons center">home</i>
                 </button>
             </a>
             <br><br><br>

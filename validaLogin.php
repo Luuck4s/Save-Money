@@ -19,7 +19,10 @@ if(!(empty($emailLogin) OR empty($senha)))
 {
     include "conectaBanco.php";
 
-    $select = "SELECT * FROM tb_usuario WHERE cd_email='$emailLogin' AND cd_senha='$senha'";
+    $select = "SELECT cd_email,cd_senha 
+                    FROM tb_usuario 
+                        WHERE cd_email='$emailLogin' 
+                            AND cd_senha='$senha'";
 
     $querySelect = $con->query($select);
     $linhaSelect = $querySelect->fetchAll();

@@ -12,7 +12,9 @@
 
     $senha = md5($senha);
 
-    $select = "SELECT * FROM tb_usuario WHERE cd_email='$email'";
+    $select = "SELECT * 
+                    FROM tb_usuario 
+                        WHERE cd_email='$email'";
 
     $querySelect = $con->query($select);
     $linhaSelect = $querySelect->fetchAll();
@@ -23,7 +25,9 @@
         $con = null;
         header("Location: index.php?Erro=2");
     }else{
-        $insert = "INSERT INTO tb_usuario(cd_email,nm_usuario,cd_senha) VALUES ('$email','$nome','$senha')";
+        $insert = "INSERT INTO tb_usuario(cd_email,nm_usuario,cd_senha) 
+                        VALUES ('$email','$nome','$senha')";
+                        
         $execInsert = $con->exec($insert);
         $con = null;
         header("Location: sucessCadastro.html");

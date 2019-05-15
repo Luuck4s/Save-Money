@@ -13,7 +13,9 @@ $senhaNova = md5($senhaNova);
 
 $emailUsuario = $_COOKIE['usuarioEmail'];
 
-$sql = "SELECT * FROM tb_usuario WHERE cd_senha = '$senhaAtual'";
+$sql = "SELECT cd_senha 
+            FROM tb_usuario 
+                WHERE cd_senha = '$senhaAtual'";
 
 $query = $con->query($sql);
 
@@ -23,7 +25,10 @@ $numLinhas = sizeof($linhasQuery);
 
 if($numLinhas != 0){
 
-    $update = "UPDATE tb_usuario SET cd_senha = '$senhaNova' WHERE cd_email = '$emailUsuario'";
+    $update = "UPDATE tb_usuario 
+                    SET cd_senha = '$senhaNova' 
+                        WHERE cd_email = '$emailUsuario'";
+                        
     $execUpdate = $con->exec($update);
     $con = null;
     header("Location: index.php?troca=Y");

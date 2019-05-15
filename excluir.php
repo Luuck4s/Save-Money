@@ -177,13 +177,16 @@ $numLinhas = sizeof($linhaSelect);
                 <div class="card blue darken-2">
                     <div class="card-content white-text">
                         <span class="center card-title"><?= $dadosRD['titulo_valor'] ?></span>
-                        <p><i class="material-icons left">info_outline</i><?= $dadosRD['tipo_valor'] ?></p>
+                        <p>
+                            <i class="material-icons left">info_outline</i><?= $dadosRD['tipo_valor'] ?>
+                        </p>
                         <hr>
                         <p class="light right"><?= $dadosRD['data_valor'] ?></p>
                         <p><?= $dadosRD['desc_valor'] ?></p>
                         <p class="center">Valor: R$ <?= number_format($dadosRD['vl_valor'], 2 ,',', '.'); ?></p>
-                        <a href="deletar.php?id=<?=$dadosRD['id_valor']?>"><i class="material-icons right"
-                                style="color:#000;">delete_forever</i></a>
+                        <a href="deletar.php?id=<?=$dadosRD['id_valor']?>">
+                            <i class="material-icons right" style="color:#000;">delete_forever</i>
+                        </a>
                         <br>
                     </div>
 
@@ -209,9 +212,15 @@ $numLinhas = sizeof($linhaSelect);
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
-                        <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
-                        <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
                     </ul>
                 </div>
             </div>

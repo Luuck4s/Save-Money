@@ -14,7 +14,7 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
 'Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
 
 $mesAtual = date("m");
-
+$anoAtual = date("Y");
 
 ?>
 <!DOCTYPE html>
@@ -51,34 +51,51 @@ $mesAtual = date("m");
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li><a href="visualizar.php?q=T">Todas Receitas e Despesas</a></li>
             <li class="divider"></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
 
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
         <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
-                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
-                        alt="img logo navbar"></a>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="principal.php" class="brand-logo center">
+                    <img class="logoNavbar" src="Img/icone.png" alt="img logo navbar">
+                </a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
                 <ul class="left hide-on-med-and-down">
                     <li>
                         <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a>
@@ -94,8 +111,16 @@ $mesAtual = date("m");
                     </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
-                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
+                    <li>
+                        <a href="perfil.php">Perfil
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logOut.php">Sair
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -107,31 +132,49 @@ $mesAtual = date("m");
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/wallet.svg"></a>
-                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
-                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/wallet.svg">
+                    </a>
+                    <a href="#!">
+                        <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
+                    </a>
+                    <a href="#!">
+                        <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
+                    </a>
                 </div>
             </li>
             <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i class="material-icons left">add</i></a>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
+                    <i class="material-icons left">add</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
+                    <i class="material-icons left">pageview</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
+                </a>
             </li>
             <li>
-                <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                <a href="excluir.php">Excluir Receita ou Despesa
+                    <i class="material-icons left">delete_sweep</i>
+                </a>
             </li>
             <li>
                 <div class="divider"></div>
             </li>
             <li>
-                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+                <a href="perfil.php">Perfil
+                    <i class="material-icons left">account_circle</i>
+                </a>
             </li>
             <li>
-                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+                <a href="logOut.php">Sair
+                    <i class="material-icons left">exit_to_app</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -168,7 +211,9 @@ $mesAtual = date("m");
                     <h1 class="light center black-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
                 </div>
             </div>
-            <div class="parallax"><img src="Img/tesouro.svg" alt="Unsplashed background img 1"></div>
+            <div class="parallax">
+                <img src="Img/tesouro.svg" alt="Unsplashed background img 1">
+            </div>
         </div>
     </div>
     <br>
@@ -189,8 +234,14 @@ $mesAtual = date("m");
 
                         $usuarioEmail = $_COOKIE["usuarioEmail"];
 
-                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor FROM tb_valores WHERE cd_email_usuario = '$usuarioEmail' AND
-                        extract(month from data_valor) = $mesAtual AND tipo_valor = 'R' ORDER BY id_valor DESC LIMIT 1";
+                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor 
+                                    FROM tb_valores 
+                                        WHERE cd_email_usuario = '$usuarioEmail' 
+                                            AND (extract(month from data_valor) = $mesAtual)
+                                                AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                                    AND tipo_valor = 'R' 
+                                                        ORDER BY id_valor 
+                                                            DESC LIMIT 1";
 
                         $querySelect = $con->query($sql);
                         $linhaSelect = $querySelect->fetchAll();
@@ -223,9 +274,14 @@ $mesAtual = date("m");
 
                         $usuarioEmail = $_COOKIE["usuarioEmail"];
 
-                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor FROM tb_valores 
-                        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual AND tipo_valor = 'D' 
-                        ORDER BY id_valor DESC LIMIT 1";
+                        $sql = "SELECT titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor 
+                                    FROM tb_valores 
+                                        WHERE cd_email_usuario = '$usuarioEmail' 
+                                            AND (extract(month from data_valor) = $mesAtual) 
+                                                AND (extract(year FROM `data_valor`) = 2019) 
+                                                    AND tipo_valor = 'D' 
+                                                        ORDER BY id_valor 
+                                                            DESC LIMIT 1";
 
                         $querySelect = $con->query($sql);
                         $linhaSelect = $querySelect->fetchAll();
@@ -264,9 +320,9 @@ $mesAtual = date("m");
                     </div>
                     <div class="card-action">
                         <center>
-                            <a href="incluir.php?tipo=R"><button
-                                    class="waves-effect waves-light btn-small blue darken-2">Adicionar uma
-                                    Receita</button></a>
+                            <a href="incluir.php?tipo=R">
+                                <button class="waves-effect waves-light btn-small blue darken-2">Adicionar uma Receita</button>
+                            </a>
                         </center>
                     </div>
                 </div>
@@ -281,9 +337,9 @@ $mesAtual = date("m");
                     </div>
                     <div class="card-action">
                         <center>
-                            <a href="incluir.php?tipo=D"><button
-                                    class="waves-effect waves-light btn-small blue darken-2">Adicionar uma
-                                    Despesa</button></a>
+                            <a href="incluir.php?tipo=D">
+                                <button class="waves-effect waves-light btn-small blue darken-2">Adicionar uma Despesa</button>
+                            </a>
                         </center>
                     </div>
                 </div>
@@ -302,9 +358,15 @@ $mesAtual = date("m");
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
-                        <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
-                        <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
                     </ul>
                 </div>
             </div>
