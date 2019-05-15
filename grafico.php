@@ -214,14 +214,22 @@
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->

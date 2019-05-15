@@ -4,6 +4,11 @@
  */
 include "validaCookie.php";
 
+date_default_timezone_set("America/Sao_Paulo"); 
+
+$arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
+$mesAtual = date("m");
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +57,7 @@ include "validaCookie.php";
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 
@@ -62,7 +67,7 @@ include "validaCookie.php";
                 <a href="visualizar.php?q=T">Receitas e Despesas</a>
             </li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 

@@ -25,18 +25,37 @@
     <div>
         <nav>
             <div class="nav-wrapper">
-                <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
-                        alt="img logo navbar"></a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="index.php" class="brand-logo center">
+                    <img class="logoNavbar" src="Img/icone.png" alt="img logo navbar">
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar<i class="material-icons right">add_box</i></a></li>
-                    <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta<i class="material-icons right">account_circle</i></a></li>
+                    <li>
+                        <a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar
+                            <i class="material-icons right">add_box</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar<i class="material-icons left">add_box</i></a></li>
-            <li><a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta<i class="material-icons left">account_circle</i></a></li>
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="#cadastro">Cadastrar
+                    <i class="material-icons left">add_box</i>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="#login">Acessar sua conta
+                    <i class="material-icons left">account_circle</i>
+                </a>
+            </li>
         </ul>
     </div>
 

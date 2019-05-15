@@ -3,6 +3,11 @@ ob_start();
 
 include "validaCookie.php";
 
+date_default_timezone_set("America/Sao_Paulo"); 
+
+$mesAtual = date("m");
+$arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
+
 ?>
 <html lang="pt-br">
 
@@ -45,21 +50,21 @@ include "validaCookie.php";
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Receitas e Despesas</a>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Receitas e Despesas</a>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
             </li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas deste mês</a>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
         <!-- NavBar -->

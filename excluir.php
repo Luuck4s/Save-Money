@@ -5,10 +5,18 @@
 include "validaCookie.php";
 include "conectaBanco.php";
 
+date_default_timezone_set("America/Sao_Paulo"); 
+
+$mesAtual = date("m");
+$arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
+
 $usuarioEmail = $_COOKIE["usuarioEmail"];
 
 
-$select = "SELECT id_valor,titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',desc_valor,vl_valor,tipo_valor from tb_valores where cd_email_usuario='$usuarioEmail' order by data_valor desc";
+$select = "SELECT id_valor,titulo_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valorFor',desc_valor,vl_valor,tipo_valor 
+                FROM tb_valores 
+                    WHERE cd_email_usuario='$usuarioEmail' 
+                        ORDER BY data_valor DESC";
 
 $querySelect = $con->query($select);
 $linhaSelect = $querySelect->fetchAll();
@@ -51,14 +59,22 @@ $numLinhas = sizeof($linhaSelect);
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
-            <li><a href="visualizar.php?q=T">Receitas e Despesas</a></li>
-            <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
+            <li>
+                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
@@ -94,8 +110,16 @@ $numLinhas = sizeof($linhaSelect);
 
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
-                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
+                    <li>
+                        <a href="perfil.php">Perfil
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logOut.php">Sair
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -107,35 +131,54 @@ $numLinhas = sizeof($linhaSelect);
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/proffile.svg"></a>
-                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
-                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/proffile.svg">
+                    </a>
+                    <a href="#!">
+                        <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
+                    </a>
+                    <a href="#!">
+                        <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
+                    </a>
                 </div>
             </li>
             <li>
-                <a href="index.php">Início<i class="material-icons left">home</i></a>
+                <a href="index.php">Início
+                    <i class="material-icons left">home</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i
-                        class="material-icons left">add</i></a>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
+                    <i class="material-icons left">add</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
+                    <i class="material-icons left">pageview</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
+                </a>
             </li>
             <li>
-                <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                <a href="excluir.php">Excluir Receita ou Despesa
+                    <i class="material-icons left">delete_sweep</i>
+                </a>
             </li>
             <li>
                 <div class="divider"></div>
             </li>
             <li>
-                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+                <a href="perfil.php">Perfil
+                    <i class="material-icons left">account_circle</i>
+                </a>
             </li>
             <li>
-                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+                <a href="logOut.php">Sair
+                    <i class="material-icons left">exit_to_app</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -181,7 +224,7 @@ $numLinhas = sizeof($linhaSelect);
                             <i class="material-icons left">info_outline</i><?= $dadosRD['tipo_valor'] ?>
                         </p>
                         <hr>
-                        <p class="light right"><?= $dadosRD['data_valor'] ?></p>
+                        <p class="light right"><?= $dadosRD['data_valorFor'] ?></p>
                         <p><?= $dadosRD['desc_valor'] ?></p>
                         <p class="center">Valor: R$ <?= number_format($dadosRD['vl_valor'], 2 ,',', '.'); ?></p>
                         <a href="deletar.php?id=<?=$dadosRD['id_valor']?>">

@@ -222,7 +222,7 @@ $anoAtual = date("Y");
         <div class="row">
             <div class="col s12 m6">
                 <center>
-                    <span class="light">A sua última receita deste mês</span>
+                    <span class="light">A sua última receita de <?= $arrayMeses[$mesAtual - 1] ?></span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">
@@ -262,7 +262,7 @@ $anoAtual = date("Y");
             </div>
             <div class="col s12 m6">
                 <center>
-                    <span class="light">A sua última despesa deste mês</span>
+                    <span class="light">A sua última despesa de <?= $arrayMeses[$mesAtual - 1] ?></span>
                 </center>
                 <div class="card blue darken-3">
                     <div class="card-content white-text">
