@@ -5,8 +5,15 @@
      */
 
     ob_start();
-    date_default_timezone_set("America/Sao_Paulo"); 
+    date_default_timezone_set("America/Sao_Paulo");
+
     include "validaCookie.php";
+    
+    /**
+     * $tempoM and $tempoT - criptografa a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+     */
+    $tempoT = md5("T");
+    $tempoM = md5("M");
 
     $usuarioEmail = $_COOKIE['usuarioEmail'];
     /**
@@ -27,7 +34,7 @@
     $maiorReceita = array("valor"=> "0","nome" => "");
     $maiorDespesa = array("valor"=> "0","nome" => "");
 
-    if($tempo == "M"){
+    if($tempo == md5("M")){
         $titulo = array(
                         "grafico1"=>"Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}",
                         "grafico2"=>"Maior Receita e Despesa de {$arrayMeses[$mesAtual - 1]}",
@@ -237,11 +244,11 @@
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=M">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->

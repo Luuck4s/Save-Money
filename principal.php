@@ -6,8 +6,13 @@ ob_start();
 date_default_timezone_set("America/Sao_Paulo"); 
 
 include "validaCookie.php";
-
 include "verSaldo.php";
+
+/**
+ * $tempoM and $tempoT - criptografa a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ */
+$tempoT = md5("T");
+$tempoM = md5("M");
 
 
 $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
@@ -15,6 +20,7 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
 
 $mesAtual = date("m");
 $anoAtual = date("Y");
+
 
 ?>
 <!DOCTYPE html>
@@ -71,20 +77,20 @@ $anoAtual = date("Y");
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=M">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=M">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
             </li>
         </ul>
         <!-- NavBar -->

@@ -3,6 +3,12 @@ ob_start();
 
 include "validaCookie.php";
 
+/**
+ * $tempoM and $tempoT - criptografa a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ */
+$tempoT = md5("T");
+$tempoM = md5("M");
+
 date_default_timezone_set("America/Sao_Paulo"); 
 
 $mesAtual = date("m");
@@ -67,6 +73,26 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
                 <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
+
+        <!-- Estrutura Dropdown Grafico -->
+        <ul id="dropdown5" class="dropdown-content">
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+            </li>
+        </ul>
+        <!-- Estrutura Dropdown Grafico Mobile -->
+        <ul id="dropdown6" class="dropdown-content">
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+            </li>
+        </ul>
         <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
@@ -85,6 +111,11 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
                     <li>
                         <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar
                             <i class="material-icons left">pageview</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico
+                            <i class="material-icons left">donut_large</i>
                         </a>
                     </li>
                     <li>
@@ -135,6 +166,11 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
             <li>
                 <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
                     <i class="material-icons left">pageview</i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
                 </a>
             </li>
             <li>
