@@ -204,9 +204,7 @@ $anoAtual = date("Y");
     <div>
         <div id="index-bannerS" class="parallax-container">
             <div class="section no-pad-bot">
-
                 <h5 class="center black-text"><?= $arrayMeses[$mesAtual - 1] ?></h5>
-                    
                 <div class="container">
                     <h1 class="light center black-text">R$ <?= number_format(ver_saldo(), 2 ,',', '.'); ?></h1>
                 </div>
