@@ -60,7 +60,7 @@
                         "tituloParallax"=>"Gráficos de $anoAtual");
     }
 
-    if($tempo == "M"){
+    if($tempo == md5("M")){
         /**
         * Select para o primeiro grafico, buscando o tipo do valor para realizar a conta e o valor em si.
         */
@@ -74,23 +74,21 @@
         */
         $sqlMaiorDespesa = "SELECT `titulo_valor`,`vl_valor`
                                 FROM `tb_valores` 
-                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
-                                        FROM `tb_valores` 
-                                            WHERE `tipo_valor` = 'D' 
-                                                AND (extract(month FROM `data_valor`) = $mesAtual) 
-                                                    AND (extract(year FROM `data_valor`) = $anoAtual)) 
-                                                        AND `cd_email_usuario` = '$usuarioEmail'";
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'D' 
+                                                                    AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                                                        AND (extract(year FROM `data_valor`) = $anoAtual))";
         /**
          * Select para o segundo grafico , buscando o titulo e valor da maior receita do mes
         */
         $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor`
                                 FROM `tb_valores` 
-                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
-                                        FROM `tb_valores`
-                                            WHERE `tipo_valor` = 'R' 
-                                                AND (extract(month FROM `data_valor`) = $mesAtual) 
-                                                    AND (extract(year FROM `data_valor`) = $anoAtual)) 
-                                                        AND `cd_email_usuario` = '$usuarioEmail'";
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'R' 
+                                                                    AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                                                        AND (extract(year FROM `data_valor`) = $anoAtual))";
         /**
          * Select para o terceiro grafico, buscando o valor da media simples das receitas 
         */
@@ -116,20 +114,18 @@
                             AND (extract(year FROM `data_valor`) = $anoAtual)";
 
         $sqlMaiorDespesa = "SELECT `titulo_valor`,`vl_valor`
-                                FROM `tb_valores`  
-                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
-                                        FROM `tb_valores`
-                                            WHERE tipo_valor = 'D' 
-                                                AND (extract(year FROM data_valor) = $anoAtual)) 
-                                                    AND cd_email_usuario = '$usuarioEmail'";
-
-        $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor` 
                                 FROM `tb_valores` 
-                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
-                                        FROM `tb_valores`
-                                            WHERE `tipo_valor` = 'R' 
-                                                AND (extract(year from `data_valor`) = $anoAtual)) 
-                                                    AND `cd_email_usuario` = '$usuarioEmail'";
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'D' 
+                                                                    AND (extract(year FROM `data_valor`) = $anoAtual))";
+
+        $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'R' 
+                                                                    AND (extract(year FROM `data_valor`) = $anoAtual))";
 
         $sqlMediaReceita = "SELECT avg(`vl_valor`) as 'Receita_Media' 
                                 FROM `tb_valores` 
@@ -199,6 +195,7 @@
     foreach($despesaMediaLinhas as $DespesaMedia){
         $mediaDespesa = $DespesaMedia['Despesa_Media'];
     }
+
 
     $con = null;
     
@@ -416,36 +413,6 @@
             </div>
         </div>
     </div>
-    <br><br>
-    <footer class="page-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Save Money</h5>
-                    <p class="grey-text text-lighten-4">“ A única maneira de fazer um excelente trabalho é amar o que
-                        você faz. Se ainda não encontrou, continue procurando. ” - Steve Jobs</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <ul>
-                        <li>
-                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
-                        </li>
-                        <li>
-                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
-                        </li>
-                        <li>
-                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="center container">
-                Save Money © 2019
-            </div>
-        </div>
-    </footer>
 
     <!--Script do grafico 1 -->
     <script type="text/javascript">
@@ -563,6 +530,30 @@
 
     <?php endif; ?>
 
+    <br><br>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Save Money</h5>
+                    <p class="grey-text text-lighten-4">“ A única maneira de fazer um excelente trabalho é amar o que
+                        você faz. Se ainda não encontrou, continue procurando. ” - Steve Jobs</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="index.php">Início</a></li>
+                        <li><a class="grey-text text-lighten-3" href="contato.html">Contato</a></li>
+                        <li><a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="center container">
+                Save Money © 2019
+            </div>
+        </div>
+    </footer>
     <script type="text/javascript">
 
     //dropdown

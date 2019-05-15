@@ -1,13 +1,17 @@
 <?php
-ob_start();
-
 /**
  * Arquivo utilizado para pegar os valores atraves de um formulario e enviar para realizar a inserção no banco.
- */
+*/
 
 include_once "validaCookie.php";
 
+ob_start();
 $tipo = $_GET["tipo"];
+
+date_default_timezone_set("America/Sao_Paulo"); 
+
+$mesAtual = date("m");
+$arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
 
 $tipoCrip = $tipo;
 
@@ -19,6 +23,24 @@ if($tipo == md5("R")){
 }else{
     $tipo = "D";
 }
+
+/**
+ * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ */
+$tempoT = md5("T");
+$tempoM = md5("M");
+
+/**
+ * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
+ */
+$tipoR = md5("R");
+$tipoD = md5("D");
+
+/**
+ * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+ */
+$qM = md5("M");
+$qT = md5("T");
 
 
 if($tipoCrip == md5("R")){
@@ -47,17 +69,83 @@ if($tipoCrip == md5("R")){
 <body>
     <!--NavBar logado-->
     <div>
+         <!-- Estrutura Dropdown Desk -->
+         <ul id="dropdown1" class="dropdown-content">
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
+            </li>
+        </ul>
+        <!-- Estrutura Dropdown mobile -->
+        <ul id="dropdown2" class="dropdown-content">
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a></li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
+            </li>
+        </ul>
+
+        <!-- Estrutura Dropdown Receitas -->
+        <ul id="dropdown3" class="dropdown-content">
+            <li>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+        </ul>
+        <!-- Estrutura Dropdown Receitas Mobile -->
+        <ul id="dropdown4" class="dropdown-content">
+            <li>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+        </ul>
+
+        <!-- Estrutura Dropdown Grafico -->
+        <ul id="dropdown5" class="dropdown-content">
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+            </li>
+        </ul>
+        <!-- Estrutura Dropdown Grafico Mobile -->
+        <ul id="dropdown6" class="dropdown-content">
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+            </li>
+        </ul>
         <nav>
             <div class="nav-wrapper">
-                <a href="index.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
+                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
                         alt="img logo navbar"></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a href="principal.php">
-                            <i class="material-icons left">arrow_back</i>
-                        </a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a>
                     </li>
+                    <li>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                    </li>
+                    <li>
+                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                    </li>
+
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     <li>
@@ -73,11 +161,6 @@ if($tipoCrip == md5("R")){
                 </ul>
             </div>
         </nav>
-        <ul class="sidenav" id="mobile-demo">
-            <li><a href="index.php">Início<i class="material-icons left">home</i></a></li>
-            <li><a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a></li>
-            <li><a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a></li>
-        </ul>
 
         <!-- sidenav mobile -->
         <ul id="slide-out" class="sidenav">
@@ -98,13 +181,42 @@ if($tipoCrip == md5("R")){
                 </div>
             </li>
             <li>
-                <a href="index.php">Início<i class="material-icons left">home</i></a>
+                <a href="index.php">Início
+                    <i class="material-icons left">home</i>
+                </a>
             </li>
             <li>
-                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
+                    <i class="material-icons left">add</i>
+                </a>
             </li>
             <li>
-                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
+                    <i class="material-icons left">pageview</i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
+                </a>
+            </li>
+            <li>
+                <a href="excluir.php">Excluir Receita ou Despesa
+                    <i class="material-icons left">delete_sweep</i>
+                </a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a href="perfil.php">Perfil
+                    <i class="material-icons left">account_circle</i>
+                </a>
+            </li>
+            <li>
+                <a href="logOut.php">Sair
+                    <i class="material-icons left">exit_to_app</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -212,6 +324,15 @@ if($tipoCrip == md5("R")){
     }
     </script>
     <script>
+    
+    //drop down
+    $(".dropdown-trigger").dropdown();
+
+    //sidenav
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+
     //imput descricao
     $(document).ready(function() {
         $('input#input_text, textarea#descricaoArea').characterCounter();

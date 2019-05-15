@@ -128,7 +128,7 @@ $numLinhas = sizeof($linhaSelect);
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons right">add</i></a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a>
                     </li>
                     <li>
                         <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
@@ -137,7 +137,7 @@ $numLinhas = sizeof($linhaSelect);
                         <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
                     </li>
                     <li>
-                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons right">delete_sweep</i></a>
+                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
                     </li>
 
                 </ul>
@@ -164,7 +164,7 @@ $numLinhas = sizeof($linhaSelect);
                         <img src="Img/specs.svg">
                     </div>
                     <a href="perfil.php">
-                        <img class="circle" src="Img/proffile.svg">
+                        <img class="circle" src="Img/wallet.svg">
                     </a>
                     <a href="#!">
                         <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
