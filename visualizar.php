@@ -18,13 +18,13 @@
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     
     if($q == "T"){
-        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',vl_valor FROM tb_valores 
-        WHERE cd_email_usuario = '$usuarioEmail' ORDER BY data_valor";
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valorFor',vl_valor FROM tb_valores 
+        WHERE cd_email_usuario = '$usuarioEmail' ORDER BY data_valor DESC";
 
         $titulo = "Todas as Despesa e Receitas";
     }else{
-        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valor',vl_valor FROM tb_valores 
-        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual ORDER BY data_valor";
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,DATE_FORMAT(data_valor,'%d/%m/%Y') as 'data_valorFor',vl_valor FROM tb_valores 
+        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual ORDER BY data_valor DESC";
 
         $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
     }
@@ -210,7 +210,7 @@
                     <td><?= $dadosPesquisa['titulo_valor'] ?></td>
                     <td><?= $dadosPesquisa['tipo_valor'] ?></td>
                     <td><?= $dadosPesquisa['desc_valor'] ?></td>
-                    <td><?= $dadosPesquisa['data_valor'] ?></td>
+                    <td><?= $dadosPesquisa['data_valorFor'] ?></td>
                     <td>R$ <?= number_format($dadosPesquisa['vl_valor'], 2 ,',', '.'); ?></td>
                 </tr>
                 <?php endforeach; ?>

@@ -6,6 +6,7 @@
  * Made By MaterializeCSS.com
  */
 
+
 ol {
   list-style-type: square; 
 }
@@ -45,12 +46,42 @@ ol {
   #index-bannerS{
     min-height: 280px;
   }
+  
+}
+@media only screen and (min-width : 999px){
+  #chart_div{
+    width: 400px; 
+    height: 400px;
+    font-size: 20px;
+  }
+  #piechart{
+    width: 400px; 
+    height: 400px;
+    font-size: 20px;
+  }
+  #piechartMedia{
+    width: 400px; 
+    height: 400px;
+    font-size: 20px;
+  }   
 }
 
 @media only screen and (max-width : 600px) {
   #index-banner .section {
     top: 0;
   }
+  #chart_div{
+    width: 'auto';
+    height: 'auto';
+  }
+  #piechart{
+    width: 'auto'; 
+    height: 'auto';
+  }
+  #piechartMedia{
+    width: 'auto'; 
+    height: 'auto';
+  }  
 }
 
 .icon-block {
@@ -92,3 +123,4 @@ ol {
 .input-field label {
   color: #000;
 }
+

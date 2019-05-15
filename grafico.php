@@ -6,68 +6,129 @@
 
     ob_start();
     date_default_timezone_set("America/Sao_Paulo"); 
-
     include "validaCookie.php";
 
     $usuarioEmail = $_COOKIE['usuarioEmail'];
+    /**
+     * $tempo pega o valor passado por get para determinar se vai ser do mês(M) ou do ano(T)
+     */
     $tempo = $_GET['Tempo'];
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     $mesAtual = date("m");
+    $anoAtual = date("Y");
     $totalReceita = 0;
     $totalDespesa = 0;
-    $maiorReceita = array("valor"=> "0","nome" => "","data" => "");
+    $mediaReceita = 0;
+    $mediaDespesa = 0;
+    
+    /**
+    * $maiorReceita and $maiorDespesa sao dois array que contem informacoes sobre a maior receita e maior despesa
+    */
+    $maiorReceita = array("valor"=> "0","nome" => "");
     $maiorDespesa = array("valor"=> "0","nome" => "");
 
-
-    /**
-     * Verifica qual "intervalo" de tempo o usuario deseja ver e exibe um titulo 
-     */
     if($tempo == "M"){
-        $titulo = "Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}";
+        $titulo = array(
+                        "grafico1"=>"Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}",
+                        "grafico2"=>"Maior Receita e Despesa de {$arrayMeses[$mesAtual - 1]}",
+                        "grafico3"=>"Média de Receitas e Despesa de {$arrayMeses[$mesAtual - 1]}");
     }else{
-        $titulo = "Gráfico de Despesas e Receitas";
+        $titulo = array(
+                        "grafico1"=>"Gráfico de Despesas e Receitas $anoAtual",
+                        "grafico2"=>"Maior Receita e Despesa de $anoAtual",
+                        "grafico3"=>"Média de Receitas e Despesa de $anoAtual");
     }
 
-    
-    /**
-     * Realiza a decisao de cada select a ser utilizado
-     */
     if($tempo == "M"){
-        /** Select para o primeiro grafico */
-        $sql = "SELECT tipo_valor,vl_valor FROM tb_valores  
-        WHERE cd_email_usuario = '$usuarioEmail' AND extract(month from data_valor) = $mesAtual";
-
-        /** Select para o segundo grafico , [pegando a maior despesa]  */
-        $sqlMaior = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
-        WHERE tipo_valor = 'D' AND (extract(month from data_valor) = $mesAtual) ) AND cd_email_usuario = '$usuarioEmail'";
-
-        /** Select para o segundo grafico , [pegando a maior Receita] */
-        $sqlMaiorReceita = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
-        WHERE tipo_valor = 'R' AND (extract(month from data_valor) = $mesAtual) ) AND cd_email_usuario = '$usuarioEmail'";
-
-        
-
+        /**
+        * Select para o primeiro grafico, buscando o tipo do valor para realizar a conta e o valor em si.
+        */
+        $sql = "SELECT `tipo_valor`,`vl_valor` 
+                    FROM `tb_valores`
+                        WHERE `cd_email_usuario` = '$usuarioEmail' 
+                            AND extract(month FROM `data_valor`) = $mesAtual 
+                                AND (extract(year FROM `data_valor`) = $anoAtual)";
+        /**
+        * Select para o segundo grafico, busca o titulo e o valor da maior despesa do mes
+        */
+        $sqlMaiorDespesa = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
+                                        FROM `tb_valores` 
+                                            WHERE `tipo_valor` = 'D' 
+                                                AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                                    AND (extract(year FROM `data_valor`) = $anoAtual)) 
+                                                        AND `cd_email_usuario` = '$usuarioEmail'";
+        /**
+         * Select para o segundo grafico , buscando o titulo e valor da maior receita do mes
+        */
+        $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
+                                        FROM `tb_valores`
+                                            WHERE `tipo_valor` = 'R' 
+                                                AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                                    AND (extract(year FROM `data_valor`) = $anoAtual)) 
+                                                        AND `cd_email_usuario` = '$usuarioEmail'";
+        /**
+         * Select para o terceiro grafico, buscando o valor da media simples das receitas 
+        */
+        $sqlMediaReceita = "SELECT avg(`vl_valor`) as 'Receita_Media' 
+                                FROM `tb_valores` 
+                                    WHERE `tipo_valor` = 'R' 
+                                        AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                            AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                                AND `cd_email_usuario` = '$usuarioEmail'";
+        /**
+         * Select para o terceiro grafico, buscando o valor da media simples das despesas 
+        */
+        $sqlMediaDespesa = "SELECT avg(`vl_valor`) as 'Despesa_Media' 
+                                FROM `tb_valores` 
+                                    WHERE `tipo_valor` = 'D' 
+                                        AND (extract(month FROM `data_valor`) = $mesAtual) 
+                                            AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                                AND `cd_email_usuario` = '$usuarioEmail'";
     }else{
-        /*Select para o primeiro grafico todos os valores */
-        $sql = "SELECT tipo_valor,vl_valor FROM tb_valores  
-            WHERE cd_email_usuario = '$usuarioEmail'";
+        $sql = "SELECT `tipo_valor`,`vl_valor` 
+                    FROM `tb_valores`  
+                        WHERE `cd_email_usuario` = '$usuarioEmail' 
+                            AND (extract(year FROM `data_valor`) = $anoAtual)";
 
-        /** Select para o segundo grafico , [pegando a maior despesa] */
-        $sqlMaior = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
-        WHERE tipo_valor = 'D') AND cd_email_usuario = '$usuarioEmail'";
+        $sqlMaiorDespesa = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores`  
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
+                                        FROM `tb_valores`
+                                            WHERE tipo_valor = 'D' 
+                                                AND (extract(year FROM data_valor) = $anoAtual)) 
+                                                    AND cd_email_usuario = '$usuarioEmail'";
 
-        /** Select para o segundo grafico , [pegando a maior Receita] */
-        $sqlMaiorReceita = "SELECT * FROM tb_valores WHERE vl_valor = (SELECT max(vl_valor) FROM tb_valores
-        WHERE tipo_valor = 'R') AND cd_email_usuario = '$usuarioEmail'";
+        $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor` 
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) 
+                                        FROM `tb_valores`
+                                            WHERE `tipo_valor` = 'R' 
+                                                AND (extract(year from `data_valor`) = $anoAtual)) 
+                                                    AND `cd_email_usuario` = '$usuarioEmail'";
+
+        $sqlMediaReceita = "SELECT avg(`vl_valor`) as 'Receita_Media' 
+                                FROM `tb_valores` 
+                                    WHERE `tipo_valor`  = 'R' 
+                                        AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                            AND `cd_email_usuario` = '$usuarioEmail'";
+
+        $sqlMediaDespesa = "SELECT avg(`vl_valor`) as 'Despesa_Media' 
+                                FROM `tb_valores` 
+                                    WHERE `tipo_valor` = 'D' 
+                                        AND (extract(year FROM `data_valor`) = $anoAtual)
+                                            AND `cd_email_usuario` = '$usuarioEmail'";
     }  
 
-    
     include "conectaBanco.php";
-    
-    /**Executando o select do primeiro grafico */
-    $querySelect = $con->query($sql);
-    $linhaSelect = $querySelect->fetchAll();
-    
+
+    // Querys Primeiro Grafico
+
+    $sqlSelect = $con->query($sql);
+    $linhaSelect = $sqlSelect->fetchAll();
     $numLinhas = sizeof($linhaSelect);
 
     #conta para saber o total de Receita e de Despesa
@@ -80,26 +141,42 @@
         }
     }
 
-
-    /** Executando o select do segundo grafico */
+    // Querys Segundo Grafico
 
     #pegando a maior despesa
-    $querySelectMaior = $con->query($sqlMaior);
-    $linhaSelectMaior = $querySelectMaior->fetchAll();
+    $SelectMaior = $con->query($sqlMaiorDespesa);
+    $linhasMaior = $SelectMaior->fetchAll();
 
-    foreach($linhaSelectMaior as $DespesaMaior){
+    foreach($linhasMaior as $DespesaMaior){
         $maiorDespesa["nome"] = $DespesaMaior["titulo_valor"];
         $maiorDespesa["valor"] = $DespesaMaior["vl_valor"];
     }
 
-    #pegando a maior receita
+    #Buscando a maior receita
     $ReceitaSelectMaior = $con->query($sqlMaiorReceita);
-    $ReceitaLinhaSelect = $ReceitaSelectMaior->fetchAll();
+    $ReceitaLinhasSelect = $ReceitaSelectMaior->fetchAll();
 
-    foreach($ReceitaLinhaSelect as $ReceitaMaior){
+    foreach($ReceitaLinhasSelect as $ReceitaMaior){
         $maiorReceita["nome"] = $ReceitaMaior["titulo_valor"];
         $maiorReceita["valor"] = $ReceitaMaior["vl_valor"];
-        $maiorReceita["data"] = $ReceitaMaior["data_valor"];
+    }
+
+    // Querys Terceiro Grafico
+
+    #buscando Media das Receitas
+    $receitaMediaSelect = $con->query($sqlMediaReceita);
+    $receitaMediaLinhas = $receitaMediaSelect->fetchAll();
+
+    foreach($receitaMediaLinhas as $ReceitaMedia){
+        $mediaReceita = $ReceitaMedia['Receita_Media'];
+    }
+
+    #buscando Media das Despesas
+    $despesaMediaSelect = $con->query($sqlMediaDespesa);
+    $despesaMediaLinhas = $despesaMediaSelect->fetchAll();
+
+    foreach($despesaMediaLinhas as $DespesaMedia){
+        $mediaDespesa = $DespesaMedia['Despesa_Media'];
     }
 
     $con = null;
@@ -107,7 +184,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -122,9 +198,7 @@
     <script src="js/init.js"></script>
     <title>Save Money</title>
 </head>
-
 <body>
-    <!--NavBar logado-->
     <div>
         <!-- Estrutura Dropdown Desk -->
         <ul id="dropdown1" class="dropdown-content">
@@ -150,41 +224,66 @@
             <li><a href="visualizar.php?q=M">Receitas e Despesas deste mês</a></li>
         </ul>
 
-
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
-            <li><a href="grafico.php?Tempo=M">Mês Atual</a></li>
-            <li><a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="grafico.php?Tempo=M">Mês Atual</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+            </li>
         </ul>
-        <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
-                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
-                        alt="img logo navbar"></a>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="principal.php" class="brand-logo center">
+                    <img class="logoNavbar" src="Img/icone.png" alt="img logo navbar">
+                </a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar
+                            <i class="material-icons left">add</i>
+                        </a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar
+                            <i class="material-icons left">pageview</i>
+                        </a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico
+                            <i class="material-icons left">donut_large</i>
+                        </a>
                     </li>
                     <li>
-                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                        <a href="excluir.php">Excluir Receita ou Despesa
+                            <i class="material-icons left">delete_sweep</i>
+                        </a>
                     </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
-                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
+                    <li>
+                        <a href="perfil.php">Perfil
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logOut.php">Sair
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -196,31 +295,49 @@
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/wallet.svg"></a>
-                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
-                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/wallet.svg">
+                    </a>
+                    <a href="#!">
+                        <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
+                    </a>
+                    <a href="#!">
+                        <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
+                    </a>
                 </div>
             </li>
             <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar<i class="material-icons left">add</i></a>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
+                    <i class="material-icons left">add</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar<i class="material-icons left">pageview</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
+                    <i class="material-icons left">pageview</i>
+                </a>
             </li>
             <li>
-                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
+                </a>
             </li>
             <li>
-                <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
+                <a href="excluir.php">Excluir Receita ou Despesa
+                    <i class="material-icons left">delete_sweep</i>
+                </a>
             </li>
             <li>
                 <div class="divider"></div>
             </li>
             <li>
-                <a href="perfil.php">Perfil<i class="material-icons left">account_circle</i></a>
+                <a href="perfil.php">Perfil
+                    <i class="material-icons left">account_circle</i>
+                </a>
             </li>
             <li>
-                <a href="logOut.php">Sair<i class="material-icons left">exit_to_app</i></a>
+                <a href="logOut.php">Sair
+                    <i class="material-icons left">exit_to_app</i>
+                </a>
             </li>
         </ul>
     </div>
@@ -242,7 +359,9 @@
     <!-- Parallax -->
     <div>
         <div id="index-bannerS" class="parallax-container">
-            <div class="parallax"><img src="Img/graphics.svg" alt="Unsplashed background img 1"></div>
+            <div class="parallax">
+                <img src="Img/graphics.svg" alt="Unsplashed background img 1">
+            </div>
         </div>
     </div>
     <br><br>
@@ -250,12 +369,16 @@
     <div class="container.fluid">
         <div class="center row">
             <!-- Grafico 1 -->
-            <div class="col s12 m6">                
+            <div class="col s12 m4">
                 <div id="chart_div"></div>
             </div>
             <!-- Grafico 2 -->
-            <div class="col s12 m6">
-                <div id="piechart" style="width: auto; height: auto; font-size: 20px"></div>
+            <div class="col s12 m4">
+                <div id="piechart" ></div>
+            </div>
+            <!-- Grafico 3 -->
+            <div class="col s12 m4">
+                <div id="piechartMedia" ></div>
             </div>
         </div>
     </div>
@@ -263,65 +386,132 @@
     <!--Script do grafico 1 -->
     <script type="text/javascript">
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
+    function drawChart() {
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
-        data.addColumn({type: 'string', role: 'tooltip'});
+        data.addColumn({
+            type: 'string',
+            role: 'tooltip'
+        });
         data.addRows([
-          ['Receitas', <?= $totalReceita ?>,'Receitas R$ <?= number_format($totalReceita, 2 ,',', '.') ?>'],
-          ['Despesas', <?= $totalDespesa ?>,'Despesas R$ <?= number_format($totalDespesa, 2 ,',', '.') ?>']
+            [
+                'Receitas', <?= $totalReceita ?>,
+                'Receitas R$ <?= number_format($totalReceita, 2 ,',', '.') ?>'
+            ],
+            [   
+                'Despesas', <?= $totalDespesa ?>,
+                'Despesas R$ <?= number_format($totalDespesa, 2 ,',', '.') ?>'
+            ]
         ]);
 
-        var options = {'title':'<?= $titulo ?>','width':'auto','height':'auto','legend':'left','is3D':true};
+        var optionsData = {
+            'title': '<?= $titulo["grafico1"] ?>',
+            'legend': 'rigth',
+            colors: ['#0d47a1', '#e53935']
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+        chart.draw(data, optionsData);
     }
     </script>
-    
+
     <!--Script grafico 2 -->
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
 
         var dataMaior = new google.visualization.DataTable();
         dataMaior.addColumn('string', 'Topping');
         dataMaior.addColumn('number', 'Slices');
-        dataMaior.addColumn({type: 'string', role: 'tooltip'});
+        dataMaior.addColumn({
+            type: 'string',
+            role: 'tooltip'
+        });
         dataMaior.addRows([
-          ['<?= $maiorReceita["nome"] ?>', <?= $maiorReceita["valor"] ?>,'<?= $maiorReceita["nome"] ?> R$ <?= number_format($maiorReceita["valor"], 2 ,',', '.') ?>'],
-          ['<?= $maiorDespesa["nome"] ?>',<?= $maiorDespesa["valor"] ?>,'<?= $maiorDespesa["nome"] ?> R$ <?= number_format($maiorDespesa["valor"], 2 ,',', '.') ?>']
+            [   '<?= $maiorReceita["nome"] ?>',
+                <?= $maiorReceita["valor"] ?>,
+                '<?= $maiorReceita["nome"] ?> R$ <?= number_format($maiorReceita["valor"], 2 ,',', '.') ?>'
+            ],
+            [   '<?= $maiorDespesa["nome"] ?>',
+                <?= $maiorDespesa["valor"] ?>,
+                '<?= $maiorDespesa["nome"] ?> R$ <?= number_format($maiorDespesa["valor"], 2 ,',', '.') ?>'
+            ]
         ]);
 
-        var options = {'title':'Maior Receita e Despesa','is3D':true};
+        var options = {
+            'title': '<?= $titulo["grafico2"] ?>',
+            'legend': 'left',
+            colors: ['#0d47a1', '#e53935'],
+            'is3D': true
+        };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(dataMaior, options);
-      }
+    }
     </script>
-    <?php endif; ?>
+
+    <!-- Script grafico 3 -->
     <script type="text/javascript">
 
-        //dropdown
-        $(".dropdown-trigger").dropdown();
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
-        //sidenav
-        $(document).ready(function(){
-            $('.sidenav').sidenav();
+    function drawChart() {
+
+        var dataMedia = new google.visualization.DataTable();
+        dataMedia.addColumn('string', 'Topping');
+        dataMedia.addColumn('number', 'Slices');
+        dataMedia.addColumn({
+            type: 'string',
+            role: 'tooltip'
         });
+        dataMedia.addRows([
+            [
+                'Receita Média', <?= $mediaReceita ?>,
+                'R$ <?= number_format($mediaReceita, 2 ,',', '.') ?>'
+            ],
+            [
+                'Despesa Média', <?= $mediaDespesa ?>,
+                'R$ <?= number_format($mediaDespesa, 2 ,',', '.') ?>'
+            ]
+        ]);
 
+        var options = {
+            title: '<?= $titulo["grafico3"] ?>',
+            'legend': 'left',
+            colors: ['#0d47a1', '#e53935'],
+            'is3D': true
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechartMedia'));
+
+        chart.draw(dataMedia, options);
+    }
     </script>
 
+    <?php endif; ?>
+
+    <script type="text/javascript">
+
+    //dropdown
+    $(".dropdown-trigger").dropdown();
+
+    //sidenav
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+
+    </script>
 </body>
 </html>
-
 <?php
 
 ob_end_flush();
