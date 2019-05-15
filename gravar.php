@@ -13,6 +13,8 @@
     $valor = $_POST["valor"];
     $data = $_POST["data"];
 
+    $tipoCrip = md5($tipo);
+
     if($descricao == ""){
         $descricao = "Sem descrição";
     }
@@ -23,8 +25,8 @@
 
     $con=null;
 
-    
-    header("Location: sucessAdd.php?tipo=$tipo");
+
+    header("Location: sucessAdd.php?tipo=$tipoCrip");
 
     ob_end_flush();
 ?>

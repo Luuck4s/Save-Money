@@ -3,8 +3,15 @@ include_once "validaCookie.php";
 
 $tipo = $_GET["tipo"];
 
+$tipoCrip = $tipo;
 
-if($tipo == "R"){
+if($tipo == md5("R")){
+    $tipo = "R";
+}else{
+    $tipo = "D";
+}
+
+if($tipoCrip == md5("R")){
     $titulo = "Receita";
 }else{
     $titulo = "Despesa";
@@ -44,7 +51,7 @@ if($tipo == "R"){
         <h6 class="center">Caso deseja inserir outra <?= $titulo ?>, clique no botão abaixo.</h6>
         <br>
         <center>
-            <a href="incluir.php?tipo=<?= $tipo ?>">
+            <a href="incluir.php?tipo=<?= $tipoCrip ?>">
                 <button class="btn blue darken-3 waves-effect waves-light">Inserir outra <?= $titulo ?>
                     <i class="material-icons right">add_circle_outline</i>
                 </button>

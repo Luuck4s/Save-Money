@@ -4,10 +4,22 @@ ob_start();
 include "validaCookie.php";
 
 /**
- * $tempoM and $tempoT - criptografa a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
  */
 $tempoT = md5("T");
 $tempoM = md5("M");
+
+/**
+ * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
+ */
+$tipoR = md5("R");
+$tipoD = md5("D");
+
+/**
+ * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+ */
+$qM = md5("M");
+$qT = md5("T");
 
 date_default_timezone_set("America/Sao_Paulo"); 
 
@@ -37,40 +49,40 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
         <!-- Estrutura Dropdown Desk -->
         <ul id="dropdown1" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown mobile -->
         <ul id="dropdown2" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
             </li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
             </li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 

@@ -9,7 +9,19 @@ include_once "validaCookie.php";
 
 $tipo = $_GET["tipo"];
 
-if($tipo == "R"){
+$tipoCrip = $tipo;
+
+/**
+ * Pego o valor que esta criptografado e realizado a conversao para poder salvar no banco
+ */
+if($tipo == md5("R")){
+    $tipo = "R";
+}else{
+    $tipo = "D";
+}
+
+
+if($tipoCrip == md5("R")){
     $titulo = "Receita";
 }else{
     $titulo = "Despesa";
@@ -41,11 +53,23 @@ if($tipo == "R"){
                         alt="img logo navbar"></a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
-                    <li><a href="principal.php"><i class="material-icons left">arrow_back</i></a></li>
+                    <li>
+                        <a href="principal.php">
+                            <i class="material-icons left">arrow_back</i>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="perfil.php">Perfil<i class="material-icons right">account_circle</i></a></li>
-                    <li><a href="logOut.php">Sair<i class="material-icons right">exit_to_app</i></a></li>
+                    <li>
+                        <a href="perfil.php">Perfil
+                            <i class="material-icons right">account_circle</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logOut.php">Sair
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -62,9 +86,15 @@ if($tipo == "R"){
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/proffile.svg"></a>
-                    <a href="#!"><span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span></a>
-                    <a href="#!"><span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/wallet.svg">
+                    </a>
+                    <a href="#!">
+                        <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
+                    </a>
+                    <a href="#!">
+                        <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
+                    </a>
                 </div>
             </li>
             <li>

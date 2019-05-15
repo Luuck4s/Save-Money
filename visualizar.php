@@ -9,14 +9,26 @@
     include "validaCookie.php";
     include "conectaBanco.php";
 
+    //Variavel que verifica quais dados ira buscar, T = tudo, M = mes
+    $q = $_GET['q'];
+
     /**
-    * $tempoM and $tempoT - criptografa a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
-    */
+     * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+     */
     $tempoT = md5("T");
     $tempoM = md5("M");
 
-    //Variavel que verifica quais dados ira buscar, T = tudo, M = mes
-    $q = $_GET['q'];
+    /**
+     * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
+     */
+    $tipoR = md5("R");
+    $tipoD = md5("D");
+
+    /**
+    * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+    */
+    $qM = md5("M");
+    $qT = md5("T");
 
     $usuarioEmail = $_COOKIE["usuarioEmail"];
 
@@ -24,7 +36,7 @@
     $anoAtual = date("Y");
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     
-    if($q == "T"){
+    if($q == md5("T")){
         $titulo = "Todas as Despesa e Receitas";
 
         $select = "SELECT titulo_valor,tipo_valor,desc_valor,
@@ -75,40 +87,40 @@
         <!-- Estrutura Dropdown Desk -->
         <ul id="dropdown1" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown mobile -->
         <ul id="dropdown2" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
             </li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
             </li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
         </ul>
 
