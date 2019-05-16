@@ -1,8 +1,4 @@
 <?php 
-/**
- * Arquivo de logout 
- */
-
     ob_start();
     
     setcookie("usuarioEmail");

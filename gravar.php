@@ -19,7 +19,22 @@
         $descricao = "Sem descrição";
     }
     
-    $comandoSQL = "INSERT INTO tb_valores (titulo_valor,tipo_valor,desc_valor,data_valor,vl_valor,cd_email_usuario) VALUES ('$titulo','$tipo','$descricao','$data',$valor,'$usuarioEmail')";
+    $comandoSQL = "INSERT INTO tb_valores 
+                                (
+                                    titulo_valor,
+                                    tipo_valor,
+                                    desc_valor,
+                                    data_valor,
+                                    vl_valor,
+                                    cd_email_usuario) 
+                            VALUES 
+                                (
+                                    '$titulo',
+                                    '$tipo',
+                                    '$descricao',
+                                    '$data',
+                                    $valor,
+                                    '$usuarioEmail')";
 
     $query = $con->exec($comandoSQL);
 

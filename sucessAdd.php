@@ -67,6 +67,38 @@ if($tipoCrip == md5("R")){
             </div>
         </center>
     </div>
+
+    <!-- Footer-->
+    <br><br><br><br><br>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Save Money</h5>
+                    <p class="grey-text text-lighten-4">“ A única maneira de fazer um excelente trabalho é amar o que
+                        você faz. Se ainda não encontrou, continue procurando. ” - Steve Jobs</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <ul>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="center container">
+                Save Money © 2019
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

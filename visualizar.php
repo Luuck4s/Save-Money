@@ -13,10 +13,11 @@
     $q = $_GET['q'];
 
     /**
-     * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
-     */
+    * $tempoM, $tempoT and $tempoP - cria uma criptografia a letra M, T e P que vai como paramentro para o grafico e define qual valores deve mostar
+    */
     $tempoT = md5("T");
     $tempoM = md5("M");
+    $tempoP = md5("P");
 
     /**
      * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
@@ -25,10 +26,11 @@
     $tipoD = md5("D");
 
     /**
-    * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+    * $qM, $qT and $qP - cria uma criptografia com a letra M, T e P que vai como parametro via get
     */
     $qM = md5("M");
     $qT = md5("T");
+    $qP = md5("P");
 
     $usuarioEmail = $_COOKIE["usuarioEmail"];
 
@@ -37,15 +39,16 @@
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     
     if($q == md5("T")){
-        $titulo = "Todas as Despesa e Receitas";
+        $titulo = "Todas as Despesa e Receitas de $anoAtual";
 
         $select = "SELECT titulo_valor,tipo_valor,desc_valor,
                         DATE_FORMAT(data_valor,'%d') as 'data_valorD',
                             DATE_FORMAT(data_valor,'%m') as 'data_valorM',
                                 DATE_FORMAT(data_valor,'%Y') as 'data_valorY',vl_valor 
                                     FROM tb_valores 
-                                        WHERE cd_email_usuario = '$usuarioEmail' 
-                                            ORDER BY data_valor DESC";
+                                        WHERE cd_email_usuario = '$usuarioEmail'
+                                            AND (extract(year FROM `data_valor`) = $anoAtual) 
+                                                ORDER BY data_valor DESC";
     }else{
         $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
 
@@ -107,31 +110,54 @@
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li class="divider"></li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
+            </li>
+        </ul>
+        <!-- Estrutura Dropdown Grafico Mobile -->
+        <ul id="dropdown6" class="dropdown-content">
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
@@ -141,6 +167,9 @@
             </li>
             <li>
                 <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- NavBar -->
@@ -310,7 +339,7 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
      <!-- Footer-->
-     <footer class="page-footer">
+    <footer class="page-footer">
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">

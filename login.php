@@ -1,8 +1,8 @@
 <?php
-    ob_start();
     /**
      * Arquivo utilizado para realizar a verificacao e login no sistema.
      */
+    ob_start();
     require_once "conectaBanco.php";
 
     $emailLogin = $_POST['emailLogin'];
@@ -28,10 +28,10 @@
         foreach($linhaSelect as $dados){
             $nome = $dados['nm_usuario'];
 
-            setcookie("nomeCompleto",$nome); // Nome completo 
+            setcookie("nomeCompleto",$nome); 
 
             $firstName = explode(" ", $nome);
-            setcookie("usuarioNome",$firstName[0]); // Apenas o primeiro nome
+            setcookie("usuarioNome",$firstName[0]); 
         }
 
         setcookie("usuarioEmail",$emailLogin);

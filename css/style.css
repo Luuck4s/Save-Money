@@ -50,18 +50,18 @@ ol {
 }
 @media only screen and (min-width : 999px){
   #chart_div{
-    width: 450px; 
-    height: 450px;
+    width: 480px; 
+    height: 480px;
     font-size: 20px;
   }
   #piechart{
-    width: 450px; 
-    height: 450px;
+    width: 480px; 
+    height: 480px;
     font-size: 20px;
   }
   #piechartMedia{
-    width: 450px; 
-    height: 450px;
+    width: 480px; 
+    height: 480px;
     font-size: 20px;
   }   
 }

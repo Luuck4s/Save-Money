@@ -10,6 +10,7 @@ $tipo = $_GET["tipo"];
 
 date_default_timezone_set("America/Sao_Paulo"); 
 
+$anoAtual = date("Y");
 $mesAtual = date("m");
 $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
 
@@ -25,10 +26,11 @@ if($tipo == md5("R")){
 }
 
 /**
- * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ * $tempoM, $tempoT and $tempoP - cria uma criptografia a letra M, T e P que vai como paramentro para o grafico e define qual valores deve mostar
  */
 $tempoT = md5("T");
 $tempoM = md5("M");
+$tempoP = md5("P");
 
 /**
  * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
@@ -37,10 +39,11 @@ $tipoR = md5("R");
 $tipoD = md5("D");
 
 /**
- * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+ * $qM, $qT and $qP - cria uma criptografia com a letra M, T e P que vai como parametro via get
  */
 $qM = md5("M");
 $qT = md5("T");
+$qP = md5("P");
 
 
 if($tipoCrip == md5("R")){
@@ -64,6 +67,7 @@ if($tipoCrip == md5("R")){
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/validatorDate.js"></script>
     <title>Adicionar <?= $titulo ?></title>
 </head>
 <body>
@@ -88,43 +92,57 @@ if($tipoCrip == md5("R")){
             </li>
         </ul>
 
-        <!-- Estrutura Dropdown Receitas -->
-        <ul id="dropdown3" class="dropdown-content">
+       <!-- Estrutura Dropdown Receitas -->
+       <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li class="divider"></li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <nav>
@@ -223,7 +241,7 @@ if($tipoCrip == md5("R")){
     <br><br>
     <!--Formulario de entrada -->
     <div class="container">
-        <form class="col s12" action="gravar.php" method="POST" onSubmit="return valida_dados(this)">
+        <form class="col s12" action="gravar.php" method="POST" onSubmit="return valida_dadosEntrada(this)">
             <!--Valor do tipo de dado -->
             <input type="hidden" name="tipo" value="<?php echo $tipo; ?>"/>
             <div class="row">
@@ -261,11 +279,9 @@ if($tipoCrip == md5("R")){
                     <i class="material-icons right">add</i>
                 </button>
             </div>
+        </form>
     </div>
     <br><br><br><br><br><br><br>
-    </form>
-    </div>
-
     <!-- Footer-->
     <footer class="page-footer">
         <div class="container">
@@ -290,92 +306,6 @@ if($tipoCrip == md5("R")){
             </div>
         </div>
     </footer>
-    <script language="javascript">
-
-    function valida_dados(formulario) {
-
-        if (formulario.tituloArea.value == "") {
-
-            document.getElementById("tituloArea").focus();
-
-            return false;
-        }
-        if (formulario.descricaoArea.value.length > 60) {
-
-            document.getElementById("descricaoArea").focus();
-
-            return false;
-        }
-        if (formulario.icon_valor.value == "") {
-
-            document.getElementById("icon_valor").focus();
-
-            return false;
-        }
-        if (formulario.icon_date.value == "") {
-
-            document.getElementById("icon_date").focus();
-
-            var messageDataElement = document.getElementById("dataMessage");
-            messageDataElement.innerHTML = "Clique no campo para abrir o calendario.";
-            return false;
-        }
-        return true;
-    }
-    </script>
-    <script>
-    
-    //drop down
-    $(".dropdown-trigger").dropdown();
-
-    //sidenav
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
-
-    //imput descricao
-    $(document).ready(function() {
-        $('input#input_text, textarea#descricaoArea').characterCounter();
-    });
-
-    //imput data
-    $(document).ready(function() {
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            i18n: {
-                months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
-                    'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-                ],
-                monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out',
-                    'Nov', 'Dez'
-                ],
-                weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
-                weekdaysAbbrev: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-                today: 'Hoje',
-                clear: 'Limpar',
-                close: 'Pronto',
-                labelMonthNext: 'Próximo mês',
-                labelMonthPrev: 'Mês anterior',
-                labelMonthSelect: 'Selecione um mês',
-                labelYearSelect: 'Selecione um ano',
-                selectMonths: true,
-                selectYears: 15,
-                cancel: 'Cancelar',
-                clear: 'Limpar'
-            }
-        });
-    });
-
-    //function value
-    function moeda(i) {
-        var v = i.value.replace(/\D/g, '');
-        v = (v / 100).toFixed(2) + '';
-        v = v.replace(",", ".");
-        v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-        v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-        i.value = v;
-    }
-    </script>
 </body>
 </html>
 <?php 

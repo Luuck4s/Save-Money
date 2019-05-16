@@ -17,6 +17,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/validatorDate.js"></script>
     <title>Save Money</title>
 </head>
 
@@ -269,59 +270,6 @@
         $(document).ready(function () {
             $('.modal').modal();
         });
-        //Formulario
-        function valida_dados(formulario) {
-            if (formulario.emailLogin.value == "") {
-
-                document.getElementById("emailLogin").focus();
-
-                var messageEmailElementLogin = document.getElementById("messagemEmailLogin");
-                messageEmailElementLogin.innerHTML = "Digite o seu Email.";
-                
-                return false;
-            }
-            if (formulario.passwordLogin.value == "") {
-
-                document.getElementById("passwordLogin").focus();
-
-                var messageSenhaElementLogin = document.getElementById("messagemSenhaLogin");
-                messageSenhaElementLogin.innerHTML = "Digite sua senha.";
-
-                return false;
-            }
-            return true;
-        }
-        //formulario Cadastro
-        function valida_dadosCadastro(formulario) {
-            if(formulario.name.value == ""){
-
-                document.getElementById("name").focus();
-
-                var messageNomeElement = document.getElementById("messagemNome");
-                messageNomeElement.innerHTML = "É obrigatorio digitar um nome.";
-
-                return false;
-            }
-            if (formulario.password.value == "" || formulario.password.value.length < 4) {
-
-                document.getElementById("password").focus();
-                var messageElement = document.getElementById("messagemSenha");
-                messageElement.innerHTML = "A senha deve ter no minino 4 caracteres.";
-
-                return false;
-            }
-            if (formulario.email.value == "") {
-                
-                document.getElementById("email").focus();
-
-                var messageEmailElement = document.getElementById("messagemEmail");
-                messageEmailElement.innerHTML = "O Email é obrigatorio para realizar o cadastro.";
-
-                return false;
-            }
-            
-            return true;
-        }
 
     </script>
 </body>

@@ -9,10 +9,11 @@ include "validaCookie.php";
 include "verSaldo.php";
 
 /**
- * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ * $tempoM, $tempoT and $tempoP - cria uma criptografia a letra M, T e P que vai como paramentro para o grafico e define qual valores deve mostar
  */
 $tempoT = md5("T");
 $tempoM = md5("M");
+$tempoP = md5("P");
 
 /**
  * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
@@ -21,10 +22,11 @@ $tipoR = md5("R");
 $tipoD = md5("D");
 
 /**
- * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+ * $qM, $qT and $qP - cria uma criptografia com a letra M, T e P que vai como parametro via get
  */
 $qM = md5("M");
 $qT = md5("T");
+$qP = md5("P");
 
 $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
 'Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
@@ -56,52 +58,75 @@ $anoAtual = date("Y");
     <div>
         <!-- Estrutura Dropdown Desk -->
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a></li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
+            </li>
             <li class="divider"></li>
-            <li><a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a></li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
+            </li>
         </ul>
         <!-- Estrutura Dropdown mobile -->
         <ul id="dropdown2" class="dropdown-content">
-            <li><a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a></li>
-            <li><a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a></li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
+            </li>
+            <li>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
+            </li>
         </ul>
 
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
-            <li><a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
             <li class="divider"></li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+            </li>
         </ul>
-
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- NavBar -->
@@ -392,26 +417,7 @@ $anoAtual = date("Y");
             </div>
         </div>
     </footer>
-
-    <script type="text/javascript">
-
-        //Slides
-        $(document).ready(function() {
-            $('.slider').slider({
-                full_width: true
-            });
-        });
-
-        //dropdown
-        $(".dropdown-trigger").dropdown();
-
-        //sidenav
-        $(document).ready(function(){
-            $('.sidenav').sidenav();
-        });
-        
-    </script>
-
+    
 </body>
 </html>
 

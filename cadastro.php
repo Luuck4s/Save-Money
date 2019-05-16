@@ -25,8 +25,17 @@
         $con = null;
         header("Location: index.php?Erro=2");
     }else{
-        $insert = "INSERT INTO tb_usuario(cd_email,nm_usuario,cd_senha) 
-                        VALUES ('$email','$nome','$senha')";
+        
+        $insert = "INSERT INTO tb_usuario
+                                (
+                                    cd_email,
+                                    nm_usuario,
+                                    cd_senha) 
+                            VALUES 
+                                (
+                                    '$email',
+                                    '$nome',
+                                    '$senha')";
                         
         $execInsert = $con->exec($insert);
         $con = null;

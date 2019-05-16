@@ -4,11 +4,32 @@
  */
 include "validaCookie.php";
 
-date_default_timezone_set("America/Sao_Paulo"); 
+date_default_timezone_set("America/Sao_Paulo");
+
+/**
+ * $tempoM, $tempoT and $tempoP - cria uma criptografia a letra M, T e P que vai como paramentro para o grafico e define qual valores deve mostar
+ */
+$tempoT = md5("T");
+$tempoM = md5("M");
+$tempoP = md5("P");
+
+
+/**
+ * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
+ */
+$tipoR = md5("R");
+$tipoD = md5("D");
+
+/**
+ * $qM, $qT and $qP - cria uma criptografia com a letra M, T e P que vai como parametro via get
+ */
+$qM = md5("M");
+$qT = md5("T");
+$qP = md5("P");
 
 $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
 $mesAtual = date("m");
-
+$anoAtual = date("Y");
 ?>
 
 <!DOCTYPE html>
@@ -31,94 +52,96 @@ $mesAtual = date("m");
 <body>
     <!--NavBar logado-->
     <div>
-        <!-- Estrutura Dropdown Desk -->
-        <ul id="dropdown1" class="dropdown-content">
+       <!-- Estrutura Dropdown Desk -->
+       <ul id="dropdown1" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown mobile -->
         <ul id="dropdown2" class="dropdown-content">
             <li>
-                <a href="incluir.php?tipo=R">Receita</a>
-            </li>
+                <a href="incluir.php?tipo=<?= $tipoR ?>">Receita</a></li>
             <li>
-                <a href="incluir.php?tipo=D">Despesa</a>
-            </li>
-        </ul>
-        <!-- Estrutura Dropdown Receitas -->
-        <ul id="dropdown3" class="dropdown-content">
-            <li>
-                <a href="visualizar.php?q=T">Receitas e Despesas</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
 
+        <!-- Estrutura Dropdown Receitas -->
+        <ul id="dropdown3" class="dropdown-content">
+            <li>
+                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+            </li>
+        </ul>
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=T">Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
-                <a href="visualizar.php?q=M">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=M">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=M">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=T">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- NavBar -->
         <nav>
             <div class="nav-wrapper">
-                <a href="principal.php" class="brand-logo center">
-                    <img class="logoNavbar" src="Img/icone.png" alt="img logo navbar">
-                </a>
-                <a href="#" data-target="slide-out" class="sidenav-trigger">
-                    <i class="material-icons">menu</i>
-                </a>
+                <a href="principal.php" class="brand-logo center"><img class="logoNavbar" src="Img/icone.png"
+                        alt="img logo navbar"></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="left hide-on-med-and-down">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar
-                            <i class="material-icons right">add</i>
-                        </a>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Adicionar<i class="material-icons left">add</i></a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar
-                            <i class="material-icons left">pageview</i>
-                        </a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown3">Visualizar<i class="material-icons left">pageview</i></a>
                     </li>
                     <li>
-                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico
-                            <i class="material-icons left">donut_large</i>
-                        </a>
+                        <a class="dropdown-trigger" href="!#" data-target="dropdown5">Gerar Gráfico<i class="material-icons left">donut_large</i></a>
                     </li>
                     <li>
-                        <a href="excluir.php">Excluir Receita ou Despesa
-                            <i class="material-icons right">delete_sweep</i>
-                        </a>
+                        <a href="excluir.php">Excluir Receita ou Despesa<i class="material-icons left">delete_sweep</i></a>
                     </li>
 
                 </ul>
@@ -144,7 +167,9 @@ $mesAtual = date("m");
                     <div class="background">
                         <img src="Img/specs.svg">
                     </div>
-                    <a href="perfil.php"><img class="circle" src="Img/proffile.svg"></a>
+                    <a href="perfil.php">
+                        <img class="circle" src="Img/wallet.svg">
+                    </a>
                     <a href="#!">
                         <span class="black-text name"><?= $_COOKIE['nomeCompleto'] ?></span>
                     </a>
@@ -166,6 +191,11 @@ $mesAtual = date("m");
             <li>
                 <a class="dropdown-trigger" href="!#" data-target="dropdown4">Visualizar
                     <i class="material-icons left">pageview</i>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="!#" data-target="dropdown6">Gerar Gráfico
+                    <i class="material-icons left">donut_large</i>
                 </a>
             </li>
             <li>
@@ -191,7 +221,7 @@ $mesAtual = date("m");
 
     <!-- Message Sucess -->
     <div class="container">
-        <h5 class="center">Pronto, o que você escolheu foi excluido com sucesso!</h5>
+        <h5 class="center">Pronto, foi excluido com sucesso!</h5>
         <br>
         <center>
             <a href="excluir.php">
@@ -209,20 +239,37 @@ $mesAtual = date("m");
                 <img class="responsive-img" src="Img/insert block.svg" width="500" alt="insert block img fail">
             </div>
         </center>
-    </div>    
-
-    <script type="text/javascript">
-    
-        //drop down
-        $(".dropdown-trigger").dropdown();
-
-        //sidenav
-        $(document).ready(function() {
-            $('.sidenav').sidenav();
-        });
-
-    </script>
-
+    </div>
+    <br><br><br><br><br>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Save Money</h5>
+                    <p class="grey-text text-lighten-4">“ A única maneira de fazer um excelente trabalho é amar o que
+                        você faz. Se ainda não encontrou, continue procurando. ” - Steve Jobs</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <ul>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="index.php">Início</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="contato.html">Contato</a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="termosDeUso.html">Termos de uso</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="center container">
+                Save Money © 2019
+            </div>
+        </div>
+    </footer>    
 </body>
 
 </html>

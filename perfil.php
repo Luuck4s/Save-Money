@@ -4,10 +4,11 @@ ob_start();
 include "validaCookie.php";
 
 /**
- * $tempoM and $tempoT - cria uma criptografia a letra M e T que vai como paramentro para o grafico e define qual valores deve mostar
+ * $tempoM, $tempoT and $tempoP - cria uma criptografia a letra M, T e P que vai como paramentro para o grafico e define qual valores deve mostar
  */
 $tempoT = md5("T");
 $tempoM = md5("M");
+$tempoP = md5("P");
 
 /**
  * $tipoR and $tipoD - cria uma criptografia com a letra R e D que vai como parametro 
@@ -16,14 +17,16 @@ $tipoR = md5("R");
 $tipoD = md5("D");
 
 /**
- * $qM and $qT - cria uma criptografia com a letra M e T que vai como parametro via get
+ * $qM, $qT and $qP - cria uma criptografia com a letra M, T e P que vai como parametro via get
  */
 $qM = md5("M");
 $qT = md5("T");
+$qP = md5("P");
 
 date_default_timezone_set("America/Sao_Paulo"); 
 
 $mesAtual = date("m");
+$anoAtual = date("Y");
 $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
 
 ?>
@@ -40,6 +43,7 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/validatorDate.js"></script>
     <title>Perfil</title>
 </head>
 
@@ -65,44 +69,58 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
                 <a href="incluir.php?tipo=<?= $tipoD ?>">Despesa</a>
             </li>
         </ul>
+
         <!-- Estrutura Dropdown Receitas -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li class="divider"></li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
+            <li class="divider"></li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+            </li>
         </ul>
-
         <!-- Estrutura Dropdown Receitas Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas</a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+            </li>
+            <li>
+                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
             </li>
         </ul>
 
         <!-- Estrutura Dropdown Grafico -->
         <ul id="dropdown5" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
         <ul id="dropdown6" class="dropdown-content">
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
+                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
+                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+            </li>
+            <li>
+                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- NavBar -->
@@ -169,6 +187,11 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
                         <span class="black-text email"><?= $_COOKIE['usuarioEmail'] ?></span>
                     </a>
                 </div>
+            </li>
+            <li>
+                <a href="index.php">Início
+                    <i class="material-icons left">home</i>
+                </a>
             </li>
             <li>
                 <a class="dropdown-trigger" href="#!" data-target="dropdown2">Adicionar
@@ -278,37 +301,12 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
             </div>
         </div>
     </footer>
-
-    <script type="text/javascript">
-    //dropdown
-    $(".dropdown-trigger").dropdown();
-
-    //sidenav
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
-
-    //Valida campos do alterar Senha
-    function valida_dadosAlteSenha(formulario) {
-            if (formulario.passwordAnt.value == "" || formulario.passwordAnt.value.length < 4) {
-
-                document.getElementById("passwordAnt").focus();
-                return false;
-            }
-            if (formulario.passwordNew.value == "" || formulario.passwordNew.value.length < 4) {
-
-                document.getElementById("passwordNew").focus();
-                return false;
-        }
-        return true;
-    }
-    </script>
-
 </body>
 
 </html>
 
 <?php
+
 @$Erro = $_GET["Erro"];
 
 
