@@ -513,7 +513,7 @@
     <?php if($numLinhas == 0): ?>
 
     <div>
-        <br>
+        <br><br><br><br><br>
         <h5 class="center-align">Está muito vazio aqui, adicione alguma receita ou despesa para poder visualizar o gráfico.</h5>
         <br>
         <center>
@@ -536,7 +536,7 @@
             </div>
         </div>
     </div>
-    <br><br>
+    <br><br><br>
     <!--Graficos -->
     <div class="container.fluid">
         <div class="center row">
@@ -671,7 +671,7 @@
 
     <?php endif; ?>
 
-    <br><br>
+    <br><br><br><br>
     <footer class="page-footer">
         <div class="container">
             <div class="row">
