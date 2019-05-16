@@ -141,7 +141,7 @@
                                         AND (extract(year FROM `data_valor`) = $anoAtual)
                                             AND `cd_email_usuario` = '$usuarioEmail'";
     }  
-
+    
     include "conectaBanco.php";
 
     // Querys Primeiro Grafico
@@ -215,6 +215,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/validatorDate.js"></script>
     <title>Save Money</title>
 </head>
 <body>
@@ -269,7 +270,7 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#formQuery">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
@@ -281,7 +282,7 @@
                 <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#formQuery">Pesquisa Avançada</a>
             </li>
         </ul>
         <nav>
@@ -386,6 +387,74 @@
                 </a>
             </li>
         </ul>
+    </div>
+
+    <!--Modal Pesquisa Avancada Grafico-->
+    <div id="formQuery" class="modal">
+        <div class="modal-content">
+            <div class="row">
+                <div class="center">
+                    <i class="medium material-icons">search</i>
+                </div>
+               <form class="col s12" action="grafico.php?Tempo=<?= $tempoP ?>" method="POST" name="formulario" onSubmit="return validaPesquisa(this)">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select name="ano" id="ano">
+                                <option value="" disabled selected>Ano</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlAno = "SELECT DISTINCT(extract(year FROM `data_valor`)) as Ano 
+                                                FROM tb_valores 
+                                                    WHERE cd_email_usuario = 'lucas@gmail.com' 
+                                                        ORDER BY Ano DESC";
+
+                                    $queryAno = $con->query($sqlAno);
+
+                                    foreach($queryAno as $Ano):
+                                ?>
+                                <option value="<?= $Ano['Ano'] ?>"><?= $Ano['Ano'] ?></option>
+                                <?php
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Ano</label>
+                            <span id="anoSpan"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <select name="mes" id="mes">
+                                <option value="" disabled selected>Mês</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlMes = "SELECT DISTINCT(extract(month FROM `data_valor`)) as Mes 
+                                                    FROM tb_valores 
+                                                        WHERE cd_email_usuario = 'lucas@gmail.com'
+                                                                ORDER BY Mes ASC;";
+
+                                    $queryMes = $con->query($sqlMes);
+
+                                    foreach($queryMes as $Mes):
+                                ?>
+                                <option value="<?= $Mes['Mes'] ?>"><?= $arrayMeses[$Mes['Mes'] - 1] ?></option>
+                                <?php 
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Mês</label>
+                            <span id="mesSpan"></span>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button class="btn blue waves-effect waves-light">Pesquisar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- caso nao tenha nenhum valor -->

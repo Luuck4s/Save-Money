@@ -4,6 +4,10 @@
     $('.sidenav').sidenav();
     $('.parallax').parallax();
 
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+
     $(".dropdown-trigger").dropdown();
 
     $(document).ready(function () {
@@ -18,6 +22,10 @@
 
     $(document).ready(function () {
       $('input#input_text, textarea#descricaoArea').characterCounter();
+    });
+
+    $(document).ready(function(){
+      $('select').formSelect();
     });
 
     $(document).ready(function () {

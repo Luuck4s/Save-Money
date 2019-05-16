@@ -132,3 +132,24 @@ function valida_dadosEntrada(formulario) {
     }
     return true;
 }
+/**
+ * Verifica os dados da pesquisa de grafico avançada
+ * @param {*} formulario 
+ */
+function validaPesquisa(formulario){
+
+    if (formulario.ano.value == "") {
+        
+        var messageAnoElement = document.getElementById("anoSpan");
+        messageAnoElement.innerHTML = "Informe o ano para realizar a pesquisa!";
+        return false;
+    }
+    if (formulario.mes.value == "") {
+
+        var messageMesElement = document.getElementById("mesSpan");
+        messageMesElement.innerHTML = "Informe o mês para realizar a pesquisa!";
+        return false;
+    }
+
+    return true;
+    }

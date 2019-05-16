@@ -9,6 +9,8 @@
     include "validaCookie.php";
     include "conectaBanco.php";
 
+    $usuarioEmail = $_COOKIE["usuarioEmail"];
+
     //Variavel que verifica quais dados ira buscar, T = tudo, M = mes
     $q = $_GET['q'];
 
@@ -49,7 +51,7 @@
                                         WHERE cd_email_usuario = '$usuarioEmail'
                                             AND (extract(year FROM `data_valor`) = $anoAtual) 
                                                 ORDER BY data_valor DESC";
-    }else{
+    }else if($q == md5("M")){
         $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
 
         $select = "SELECT titulo_valor,tipo_valor,desc_valor,
@@ -61,6 +63,8 @@
                                                     AND extract(month from data_valor) = $mesAtual
                                                         AND (extract(year FROM `data_valor`) = $anoAtual) 
                                                             ORDER BY data_valor DESC";
+    }else if($q == md5("P")){
+        
     }
 
     $querySelect = $con->query($select);
@@ -82,6 +86,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src = "js/validatorDate.js"></script>
     <title>Visualizar</title>
 </head>
 
@@ -145,7 +150,7 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#formQuery">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- Estrutura Dropdown Grafico Mobile -->
@@ -157,19 +162,7 @@
                 <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
-                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
-            </li>
-        </ul>
-        <!-- Estrutura Dropdown Grafico Mobile -->
-        <ul id="dropdown6" class="dropdown-content">
-            <li>
-                <a href="grafico.php?Tempo=<?= $tempoM ?>">Mês Atual</a>
-            </li>
-            <li>
-                <a href="grafico.php?Tempo=<?= $tempoT ?>">Todas Receitas e Despesas</a>
-            </li>
-            <li>
-                <a href="grafico.php?Tempo=<?= $tempoP ?>">Pesquisa Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#formQuery">Pesquisa Avançada</a>
             </li>
         </ul>
         <!-- NavBar -->
@@ -276,6 +269,74 @@
                 </a>
             </li>
         </ul>
+    </div>
+    <!--Modal Pesquisa Avancada Grafico-->
+    <div id="formQuery" class="modal">
+        <div class="modal-content">
+            <div class="row">
+                <div class="center">
+                    <i class="medium material-icons">search</i>
+                </div>
+               <form class="col s12" action="grafico.php?Tempo=<?= $tempoP ?>" method="POST" name="formulario" onSubmit="return validaPesquisa(this)">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select name="ano" id="ano">
+                                <option value="" disabled selected>Ano</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlAno = "SELECT DISTINCT(extract(year FROM `data_valor`)) as Ano 
+                                                FROM tb_valores 
+                                                    WHERE cd_email_usuario = '$usuarioEmail' 
+                                                        ORDER BY Ano DESC";
+
+                                    $queryAno = $con->query($sqlAno);
+
+                                    foreach($queryAno as $Ano):
+                                ?>
+                                <option value="<?= $Ano['Ano'] ?>"><?= $Ano['Ano'] ?></option>
+                                <?php
+                                    
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Ano</label>
+                            <span id="anoSpan"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <select name="mes" id="mes">
+                                <option value="" disabled selected>Mês</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlMes = "SELECT DISTINCT(extract(month FROM `data_valor`)) as Mes 
+                                                    FROM tb_valores 
+                                                        WHERE cd_email_usuario = '$usuarioEmail'
+                                                                ORDER BY Mes ASC";
+
+                                    $queryMes = $con->query($sqlMes);
+
+                                    foreach($queryMes as $Mes):
+                                ?>
+                                <option value="<?= $Mes['Mes'] ?>"><?= $arrayMeses[$Mes['Mes'] - 1] ?></option>
+                                <?php 
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Mês</label>
+                            <span id="mesSpan"></span>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button class="btn blue waves-effect waves-light">Pesquisar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="container.fluid">
         <?php if($numLinhas == 0): ?>
