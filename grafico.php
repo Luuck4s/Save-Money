@@ -48,21 +48,18 @@
     $maiorReceita = array("valor"=> "0","nome" => "");
     $maiorDespesa = array("valor"=> "0","nome" => "");
 
-    if($tempo == md5("M")){
-        $titulo = array(
-                        "grafico1"=>"Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}",
-                        "grafico2"=>"Maior Receita e Despesa de {$arrayMeses[$mesAtual - 1]}",
-                        "grafico3"=>"Média de Receitas e Despesa de {$arrayMeses[$mesAtual - 1]}",
-                        "tituloParallax"=>"Gráficos de {$arrayMeses[$mesAtual - 1]}");
-    }else{
-        $titulo = array(
-                        "grafico1"=>"Gráfico de Despesas e Receitas $anoAtual",
-                        "grafico2"=>"Maior Receita e Despesa de $anoAtual",
-                        "grafico3"=>"Média de Receitas e Despesa de $anoAtual",
-                        "tituloParallax"=>"Gráficos de $anoAtual");
-    }
 
     if($tempo == md5("M")){
+
+        /**
+         * Preenchendo o array $titulo que ira servir para definir os titulos dos graficos
+         */
+        $titulo = array(
+            "grafico1"=>"Gráfico do Mês de {$arrayMeses[$mesAtual - 1]}",
+            "grafico2"=>"Maior Receita e Despesa de {$arrayMeses[$mesAtual - 1]}",
+            "grafico3"=>"Média de Receitas e Despesa de {$arrayMeses[$mesAtual - 1]}",
+            "tituloParallax"=>"Gráficos de {$arrayMeses[$mesAtual - 1]}");
+
         /**
         * Select para o primeiro grafico, buscando o tipo do valor para realizar a conta e o valor em si.
         */
@@ -109,7 +106,14 @@
                                         AND (extract(month FROM `data_valor`) = $mesAtual) 
                                             AND (extract(year FROM `data_valor`) = $anoAtual) 
                                                 AND `cd_email_usuario` = '$usuarioEmail'";
-    }else{
+    }else if ($tempo == md5("T")){
+
+        $titulo = array(
+            "grafico1"=>"Gráfico de Despesas e Receitas $anoAtual",
+            "grafico2"=>"Maior Receita e Despesa de $anoAtual",
+            "grafico3"=>"Média de Receitas e Despesa de $anoAtual",
+            "tituloParallax"=>"Gráficos de $anoAtual");
+        
         $sql = "SELECT `tipo_valor`,`vl_valor` 
                     FROM `tb_valores`  
                         WHERE `cd_email_usuario` = '$usuarioEmail' 
@@ -140,7 +144,55 @@
                                     WHERE `tipo_valor` = 'D' 
                                         AND (extract(year FROM `data_valor`) = $anoAtual)
                                             AND `cd_email_usuario` = '$usuarioEmail'";
-    }  
+    }else if ($tempo == md5("P")){
+
+        $ano = $_POST["ano"];
+        $mes = $_POST["mes"];
+
+        $titulo = array(
+            "grafico1"=>"Gráfico de Despesas e Receitas {$arrayMeses[$mes -1]}/$ano",
+            "grafico2"=>"Maior Receita e Despesa de {$arrayMeses[$mes -1]}/$ano",
+            "grafico3"=>"Média de Receitas e Despesa de {$arrayMeses[$mes -1]}/$ano",
+            "tituloParallax"=>"{$arrayMeses[$mes -1]}<br>$ano");
+
+    
+        $sql = "SELECT `tipo_valor`,`vl_valor` 
+        FROM `tb_valores`
+            WHERE `cd_email_usuario` = '$usuarioEmail' 
+                AND extract(month FROM `data_valor`) = $mes 
+                    AND (extract(year FROM `data_valor`) = $ano)";
+        
+        $sqlMaiorDespesa = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'D' 
+                                                                    AND (extract(month FROM `data_valor`) = $mes) 
+                                                                        AND (extract(year FROM `data_valor`) = $ano))";
+        
+        $sqlMaiorReceita = "SELECT `titulo_valor`,`vl_valor`
+                                FROM `tb_valores` 
+                                    WHERE `vl_valor` = (SELECT max(`vl_valor`) FROM `tb_valores`
+                                                            WHERE `cd_email_usuario` = '$usuarioEmail'
+                                                                AND `tipo_valor` = 'R' 
+                                                                    AND (extract(month FROM `data_valor`) = $mes) 
+                                                                        AND (extract(year FROM `data_valor`) = $ano))";
+        
+        $sqlMediaReceita = "SELECT avg(`vl_valor`) as 'Receita_Media' 
+                                FROM `tb_valores` 
+                                    WHERE `tipo_valor` = 'R' 
+                                        AND (extract(month FROM `data_valor`) = $mes) 
+                                            AND (extract(year FROM `data_valor`) = $ano) 
+                                                AND `cd_email_usuario` = '$usuarioEmail'";
+
+        $sqlMediaDespesa = "SELECT avg(`vl_valor`) as 'Despesa_Media' 
+         FROM `tb_valores` 
+             WHERE `tipo_valor` = 'D' 
+                 AND (extract(month FROM `data_valor`) = $mes) 
+                     AND (extract(year FROM `data_valor`) = $ano) 
+                         AND `cd_email_usuario` = '$usuarioEmail'";
+
+    }
     
     include "conectaBanco.php";
 
@@ -406,7 +458,7 @@
 
                                     $sqlAno = "SELECT DISTINCT(extract(year FROM `data_valor`)) as Ano 
                                                 FROM tb_valores 
-                                                    WHERE cd_email_usuario = 'lucas@gmail.com' 
+                                                    WHERE cd_email_usuario = '$usuarioEmail' 
                                                         ORDER BY Ano DESC";
 
                                     $queryAno = $con->query($sqlAno);
@@ -430,8 +482,8 @@
 
                                     $sqlMes = "SELECT DISTINCT(extract(month FROM `data_valor`)) as Mes 
                                                     FROM tb_valores 
-                                                        WHERE cd_email_usuario = 'lucas@gmail.com'
-                                                                ORDER BY Mes ASC;";
+                                                        WHERE cd_email_usuario = '$usuarioEmail'
+                                                                ORDER BY Mes ASC";
 
                                     $queryMes = $con->query($sqlMes);
 
@@ -532,7 +584,7 @@
         var optionsData = {
             'title': '<?= $titulo["grafico1"] ?>',
             'legend': 'rigth',
-            colors: ['#0d47a1', '#e53935']
+            colors: ['#0d47a1', '#d32f2f']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -569,7 +621,7 @@
         var options = {
             'title': '<?= $titulo["grafico2"] ?>',
             'legend': 'left',
-            colors: ['#0d47a1', '#e53935'],
+            colors: ['#0d47a1', '#d32f2f'],
             'is3D': true
         };
 
@@ -607,7 +659,7 @@
         var options = {
             title: '<?= $titulo["grafico3"] ?>',
             'legend': 'left',
-            colors: ['#0d47a1', '#e53935'],
+            colors: ['#0d47a1', '#d32f2f'],
             'is3D': true
         };
 
