@@ -24,6 +24,10 @@
       $('input#input_text, textarea#descricaoArea').characterCounter();
     });
 
+    $(document).ready(function() {
+      $('input#input_text, textarea#respostaSegu').characterCounter();
+    });
+
     $(document).ready(function(){
       $('select').formSelect();
     });

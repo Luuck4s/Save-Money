@@ -31,6 +31,7 @@ function valida_dados(formulario) {
 function valida_dadosCadastro(formulario) {
 
     var checkBox = document.getElementById("chek");
+    
 
     if(formulario.name.value == ""){
 
@@ -55,6 +56,24 @@ function valida_dadosCadastro(formulario) {
 
         var messageEmailElement = document.getElementById("messagemEmail");
         messageEmailElement.innerHTML = "O Email é obrigatorio para realizar o cadastro.";
+
+        return false;
+    }
+    if(formulario.selectSegu.value == ""){
+
+        var messagemSelect =  document.getElementById("messagemSelct");
+
+        messagemSelect.innerHTML = "Selecione uma Pergunta de Segurança.";
+        return false;
+
+    }
+    if(formulario.respostaSegu.value == "" || formulario.respostaSegu.value.length > 40){
+
+        document.getElementById("respostaSegu").focus();
+
+        var messagemSelect =  document.getElementById("respostaSeguSpan");
+
+        messagemSelect.innerHTML = "Digite uma resposta de segurança, é necessario caso esqueça sua senha.";
 
         return false;
     }
@@ -91,8 +110,6 @@ function valida_dadosAlteSenha(formulario) {
     
 return true;
 }
-
-
 
 /**
  * Funcao que deixa o campo de valor apenas recebendo numeros e ja formatando eles

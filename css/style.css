@@ -11,6 +11,11 @@ ol {
   list-style-type: square; 
 }
 
+#cadastro{
+  width: 60%;
+  height: 100%;
+}
+
 .flow-text{
   font-size: 19px;
 }
@@ -42,6 +47,10 @@ ol {
   #login{
     width: 90%;
     height: 50%;
+  }
+  #cadastro{
+    width: 90%;
+    height: 100%;
   }
   #index-bannerS{
     min-height: 280px;

@@ -88,6 +88,24 @@
                             <span class="helper-text" id="messagemEmail"></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="selectSegu" name="selectSegu">
+                                <option value="" disabled selected>Selecione uma pergunta</option>
+                                <option value="1">Qual cidade você nasceu ?</option>
+                                <option value="2">Cor favorita ?</option>
+                            </select>
+                            <label>Pergunta de Segurança</label>
+                            <span class="helper-text" id="messagemSelct"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="respostaSegu" name="respostaSegu" data-length="40" class="materialize-textarea"></textarea>
+                            <label for="respostaSegu">Resposta</label>
+                            <span class="helper-text" id="respostaSeguSpan"></span>
+                        </div>
+                    </div>
                     <div>
                         <center>
                             <label>
