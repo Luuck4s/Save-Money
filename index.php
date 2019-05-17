@@ -88,16 +88,22 @@
                             <span class="helper-text" id="messagemEmail"></span>
                         </div>
                     </div>
+                    <div>
+                        <center>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="chek" />
+                                <span>Ao se cadastrar você concorda com os <a href="termosDeUso.html">Termos de Uso e Políticas
+                                de Privacidade.</a></span>
+                            </label>
+                        </center>
+                    </div>
+                    <br>
                     <div class="center">
                         <button class="btn blue waves-effect waves-light">Cadastrar
                             <i class="material-icons right">send</i>
                         </button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <p class="center">Ao se cadastrar você concorda com os <a href="termosDeUso.html">Termos de Uso e Políticas
-                    de Privacidade.</a></p>
             </div>
         </div>
     </div>

@@ -29,6 +29,9 @@ function valida_dados(formulario) {
  * @param {formulario} formulario 
 */
 function valida_dadosCadastro(formulario) {
+
+    var checkBox = document.getElementById("chek");
+
     if(formulario.name.value == ""){
 
         document.getElementById("name").focus();
@@ -55,7 +58,10 @@ function valida_dadosCadastro(formulario) {
 
         return false;
     }
-    
+    if(checkBox.checked != true){
+
+        return false;
+    }
     return true;
 }
 
@@ -82,8 +88,11 @@ function valida_dadosAlteSenha(formulario) {
         M.toast({html: 'A sua nova senha não podem ser igual a atual!'})
         return false;
     }
+    
 return true;
 }
+
+
 
 /**
  * Funcao que deixa o campo de valor apenas recebendo numeros e ja formatando eles
