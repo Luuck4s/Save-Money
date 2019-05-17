@@ -75,24 +75,24 @@ $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julh
         <!-- Estrutura Dropdown Visualizar -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li class="divider"></li>
             <li>
                 <a class="waves-effect waves-light modal-trigger" href="#PesQuery">Pesquisa Avançada</a>
             </li>
         </ul>
-        <!-- Estrutura Dropdown Receitas Visualizar -->
+        <!-- Estrutura Dropdown Visualizar -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
-                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
+                <a href="visualizar.php?q=<?= $qM ?>">Mês de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
+                <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
             </li>
             <li>
                 <a class="waves-effect waves-light modal-trigger" href="#PesQuery">Pesquisa Avançada</a>
