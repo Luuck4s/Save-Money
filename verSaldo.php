@@ -16,11 +16,13 @@
         $usuarioEmail = $_COOKIE['usuarioEmail'];
 
         $mesAtual = date("m");
+        $anoAtual = date("Y");
 
         $comandoSQL = "SELECT titulo_valor,tipo_valor,desc_valor,data_valor,vl_valor 
                             FROM tb_valores 
                                 WHERE cd_email_usuario = '$usuarioEmail' 
-                                    AND extract(month from data_valor) = $mesAtual";
+                                    AND extract(month FROM data_valor) = $mesAtual
+                                        AND extract(year FROM `data_valor`) = $anoAtual";
 
         $querySelect = $con->query($comandoSQL);
 

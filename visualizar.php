@@ -64,7 +64,22 @@
                                                         AND (extract(year FROM `data_valor`) = $anoAtual) 
                                                             ORDER BY data_valor DESC";
     }else if($q == md5("P")){
-        
+
+        $ano = $_POST["ano"];
+        $mes = $_POST["mes"];
+
+        $titulo = "{$arrayMeses[$mes - 1]} / $ano";
+
+        $select = "SELECT titulo_valor,tipo_valor,desc_valor,
+                        DATE_FORMAT(data_valor,'%d') as 'data_valorD',
+                                DATE_FORMAT(data_valor,'%m') as 'data_valorM',
+                                        DATE_FORMAT(data_valor,'%Y') as 'data_valorY',vl_valor 
+                                            FROM tb_valores 
+                                                WHERE cd_email_usuario = '$usuarioEmail' 
+                                                    AND extract(month from data_valor) = $mes
+                                                        AND (extract(year FROM `data_valor`) = $ano) 
+                                                            ORDER BY data_valor DESC";
+
     }
 
     $querySelect = $con->query($select);
@@ -112,7 +127,7 @@
             </li>
         </ul>
 
-        <!-- Estrutura Dropdown Receitas -->
+        <!-- Estrutura Dropdown Pesquisa -->
         <ul id="dropdown3" class="dropdown-content">
             <li>
                 <a href="visualizar.php?q=<?= $qT ?>">Receitas e Despesas de <?= $anoAtual ?></a>
@@ -123,10 +138,10 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#PesQuery">Pesquisa Avançada</a>
             </li>
         </ul>
-        <!-- Estrutura Dropdown Receitas Mobile -->
+        <!-- Estrutura Dropdown Pesquisa Mobile -->
         <ul id="dropdown4" class="dropdown-content">
             <li>
                 <a href="visualizar.php?q=<?= $qT ?>">Todas Receitas e Despesas de <?= $anoAtual ?></a>
@@ -135,7 +150,7 @@
                 <a href="visualizar.php?q=<?= $qM ?>">Receitas e Despesas de <?= $arrayMeses[$mesAtual - 1] ?></a>
             </li>
             <li>
-                <a href="visualizar.php?q=<?= $qP ?>">Visualização Avançada</a>
+                <a class="waves-effect waves-light modal-trigger" href="#PesQuery">Pesquisa Avançada</a>
             </li>
         </ul>
 
@@ -338,6 +353,75 @@
             </div>
         </div>
     </div>
+    <!-- Modal Pesquisa Avançada -->
+    <div id="PesQuery" class="modal">
+        <div class="modal-content">
+            <div class="row">
+                <div class="center">
+                    <i class="medium material-icons">search</i>
+                </div>
+               <form class="col s12" action="visualizar.php?q=<?= $qP ?>" method="POST" name="formulario" onSubmit="return validaPesquisa(this)">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select name="ano" id="ano">
+                                <option value="" disabled selected>Ano</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlAno = "SELECT DISTINCT(extract(year FROM `data_valor`)) as Ano 
+                                                FROM tb_valores 
+                                                    WHERE cd_email_usuario = '$usuarioEmail' 
+                                                        ORDER BY Ano DESC";
+
+                                    $queryAno = $con->query($sqlAno);
+
+                                    foreach($queryAno as $Ano):
+                                ?>
+                                <option value="<?= $Ano['Ano'] ?>"><?= $Ano['Ano'] ?></option>
+                                <?php
+                                    
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Ano</label>
+                            <span id="anoSpan"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <select name="mes" id="mes">
+                                <option value="" disabled selected>Mês</option>
+                                <?php 
+                                    require "conectaBanco.php";
+
+                                    $sqlMes = "SELECT DISTINCT(extract(month FROM `data_valor`)) as Mes 
+                                                    FROM tb_valores 
+                                                        WHERE cd_email_usuario = '$usuarioEmail'
+                                                            ORDER BY Mes ASC";
+
+                                    $queryMes = $con->query($sqlMes);
+
+                                    foreach($queryMes as $Mes):
+                                ?>
+                                <option value="<?= $Mes['Mes'] ?>"><?= $arrayMeses[$Mes['Mes'] - 1] ?></option>
+                                <?php 
+                                    $con = null;
+                                    endforeach;
+                                ?>
+                            </select>
+                            <label>Mês</label>
+                            <span id="mesSpan"></span>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button class="btn blue waves-effect waves-light">Pesquisar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="container.fluid">
         <?php if($numLinhas == 0): ?>
         <br><br><br>
