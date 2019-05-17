@@ -267,7 +267,7 @@ $anoAtual = date("Y");
                                     $sqlMes = "SELECT DISTINCT(extract(month FROM `data_valor`)) as Mes 
                                                     FROM tb_valores 
                                                         WHERE cd_email_usuario = '$usuarioEmail'
-                                                                ORDER BY Mes ASC";
+                                                            ORDER BY Mes ASC";
 
                                     $queryMes = $con->query($sqlMes);
 
