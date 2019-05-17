@@ -71,11 +71,13 @@
                     onSubmit="return valida_dadosCadastro(this)">
                     <div class="row">
                         <div class="input-field col s6">
+                            <i class="material-icons prefix">assignment_ind</i>
                             <input id="name" type="text" name="name" class="validate">
                             <label for="name">Nome</label>
                             <span class="helper-text" id="messagemNome"></span>
                         </div>
                         <div class="input-field col s6">
+                            <i class="material-icons prefix">https</i>
                             <input id="password" type="password" name="password" class="validate">
                             <label for="password">Senha</label>
                             <span class="helper-text" id="messagemSenha"></span>
@@ -83,6 +85,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
                             <input id="email" type="email" name="email" class="validate">
                             <label for="email">Email</label>
                             <span class="helper-text" id="messagemEmail"></span>
@@ -90,6 +93,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">text_fields</i>
                             <select id="selectSegu" name="selectSegu">
                                 <option value="" disabled selected>Selecione uma pergunta</option>
                                 <option value="1">Qual cidade você nasceu ?</option>
@@ -101,6 +105,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">short_text</i>
                             <textarea id="respostaSegu" name="respostaSegu" data-length="40" class="materialize-textarea"></textarea>
                             <label for="respostaSegu">Resposta</label>
                             <span class="helper-text" id="respostaSeguSpan"></span>
@@ -137,14 +142,17 @@
                     onSubmit="return valida_dados(this)">
                     <div class="row">
                         <div class="input-field col s6">
+                            <i class="material-icons prefix">email</i>
                             <input id="emailLogin" type="email" class="validate" name="emailLogin">
                             <label for="emailLogin">Email</label>
                             <span class="helper-text" id="messagemEmailLogin"></span>
                         </div>
                         <div class="input-field col s6">
+                            <i class="material-icons prefix">https</i>
                             <input id="passwordLogin" type="password" class="validate" name="senhaLogin">
                             <label for="passwordLogin">Senha</label>
                             <span class="helper-text" id="messagemSenhaLogin"></span>
+                            <span class="helper-text"><a href="esqueceuSenha.php">Esqueceu a senha?</a></span>
                         </div>
                     </div>
                     <div class="center">

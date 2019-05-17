@@ -178,4 +178,49 @@ function validaPesquisa(formulario){
     }
 
     return true;
+}
+
+/**
+ * Verifica os campos de texto para reliazar a troca de senha
+ * @param {*} formulario 
+ */
+function valida_dadosEsqueceu(formulario){
+    if (formulario.email.value == "") {
+        
+        document.getElementById("email").focus();
+
+        var messageEmailElement = document.getElementById("messagemEmail");
+        messageEmailElement.innerHTML = "O Email é obrigatorio para realizar a troca de senha.";
+
+        return false;
     }
+    if(formulario.selectSegu.value == ""){
+
+        var messagemSelect =  document.getElementById("messagemSelct");
+
+        messagemSelect.innerHTML = "Selecione a pergunta de Segurança.";
+        return false;
+
+    }
+    if(formulario.respostaSegu.value == "" || formulario.respostaSegu.value.length > 40){
+
+        document.getElementById("respostaSegu").focus();
+
+        var messagemSelect =  document.getElementById("respostaSeguSpan");
+
+        messagemSelect.innerHTML = "Digite a mesma resposta de segurança que foi inserida no cadastro.";
+
+        return false;
+    }
+    if(formulario.passwordNew.value == "" || formulario.passwordNew.value.length < 4){
+
+        document.getElementById("passwordNew").focus();
+
+        var messagemSenha =  document.getElementById("senhaNovaSpan");
+
+        messagemSenha.innerHTML = "Digite a nova senha.";
+
+        return false;
+    }  
+    return true;
+}
