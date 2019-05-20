@@ -53,7 +53,7 @@
                             WHERE cd_email_usuario = '$usuarioEmail'
                                 AND (extract(year FROM `data_valor`) = $ano)
                                     AND(extract(month from `data_valor`) = $mes) 
-                                        ORDER BY data_valor DESC";
+                                        ORDER BY data_valor ASC";
     }elseif(strlen($linkPDF) < 3){
         
         $tituloPDF = "{$arrayMeses[$linkPDF - 1]} - $anoAtual";
@@ -64,7 +64,7 @@
                             WHERE cd_email_usuario = '$usuarioEmail'
                                 AND (extract(year FROM `data_valor`) = $anoAtual)
                                     AND(extract(month from `data_valor`) = $linkPDF) 
-                                        ORDER BY data_valor DESC";
+                                        ORDER BY data_valor ASC";
     }else{
 
         $tituloPDF = $linkPDF;
@@ -74,7 +74,7 @@
                             FROM tb_valores 
                                 WHERE cd_email_usuario = '$usuarioEmail'
                                     AND (extract(year FROM `data_valor`) = $linkPDF) 
-                                        ORDER BY data_valor DESC";
+                                        ORDER BY data_valor ASC";
     }
 
     $pdf = new PDF();
