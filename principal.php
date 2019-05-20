@@ -373,9 +373,9 @@ $anoAtual = date("Y");
                     </div>
                 </li>
                 <li>
-                    <img src="Img/teasure.svg" alt="undraw savings fail">
+                    <img src="Img/moon.svg" alt="undraw savings fail">
                     <div class="caption center-align">
-                        <h3 class="black-text">Aproveite o Save Money</h3>
+                        <h3 class="white-text">Aproveite o Save Money</h3>
                     </div>
                 </li>
             </ul>

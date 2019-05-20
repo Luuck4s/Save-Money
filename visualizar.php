@@ -488,7 +488,7 @@
     <div class="container.fluid">
     <br><br>
         <div style="float: right;padding-right: 30px;">
-            <a href="geraPdf.php?tempopdf=<?= $linkPDF ?>">Gerar PDF
+            <a target="_blank" href="geraPdf.php?tempopdf=<?= $linkPDF ?>">Gerar PDF
                 <i class="small material-icons">picture_as_pdf</i>
             </a>
         </div>

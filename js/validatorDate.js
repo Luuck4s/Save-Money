@@ -1,3 +1,5 @@
+// Arquivo com scripts de validacao de formularios
+
 /**
  * Script que valida os dados no momento de login 
  * @param {formulario} formulario 
