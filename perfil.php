@@ -1,4 +1,8 @@
 <?php 
+/**
+ * Arquivo da pagina de perfil do usuario.
+ */
+
 ob_start();
 
 include "validaCookie.php";

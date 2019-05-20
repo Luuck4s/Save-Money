@@ -1,6 +1,6 @@
 <?php 
     /**
-     * Arquivo com uma funcao de retornar o saldo do mes atual.
+     * Arquivo com uma funcao de retornar o saldo do mes atual e do ano Atual.
      */
     ob_start();
     date_default_timezone_set("America/Sao_Paulo"); 

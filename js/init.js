@@ -33,6 +33,14 @@
     });
 
     $(document).ready(function () {
+      $('.parallax').parallax();
+    });
+  
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+
+    $(document).ready(function () {
       $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         i18n: {

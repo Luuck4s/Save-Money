@@ -1,5 +1,7 @@
 <?php 
-
+    /**
+     * Arquivo que troca a senha do usuario caso ele esqueça
+     */
     ob_start();
 
     include "conectaBanco.php";

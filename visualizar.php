@@ -41,7 +41,9 @@
     $arrayMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro']; 
     
     if($q == md5("T")){
+
         $titulo = "Todas as Despesa e Receitas de $anoAtual";
+        $linkPDF = "$anoAtual";
 
         $select = "SELECT titulo_valor,tipo_valor,desc_valor,
                         DATE_FORMAT(data_valor,'%d') as 'data_valorD',
@@ -52,7 +54,9 @@
                                             AND (extract(year FROM `data_valor`) = $anoAtual) 
                                                 ORDER BY data_valor DESC";
     }else if($q == md5("M")){
+
         $titulo = "Despesa e Receitas do Mês de {$arrayMeses[$mesAtual - 1]}";
+        $linkPDF = "$mesAtual";
 
         $select = "SELECT titulo_valor,tipo_valor,desc_valor,
                         DATE_FORMAT(data_valor,'%d') as 'data_valorD',
@@ -67,6 +71,7 @@
 
         $ano = $_POST["ano"];
         $mes = $_POST["mes"];
+        $linkPDF = "$mes/$ano";
 
         $titulo = "{$arrayMeses[$mes - 1]} / $ano";
 
@@ -448,7 +453,7 @@
         <table class="responsive-table striped centered">
             <thead>
                 <tr>
-                    <th>Titulo</th>
+                    <th>Título</th>
                     <th>Tipo</th>
                     <th>Descrição</th>
                     <th>Data</th>
@@ -479,6 +484,14 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
+    <div class="container.fluid">
+    <br><br>
+        <div style="float: right;padding-right: 30px;">
+            <a href="geraPdf.php?tempopdf=<?= $linkPDF ?>">Gerar PDF
+                <i class="small material-icons">picture_as_pdf</i>
+            </a>
+        </div>
     </div>
         <?php  endif; ?>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

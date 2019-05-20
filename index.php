@@ -287,23 +287,6 @@
             </div>
         </div>
     </footer>
-
-    <script type="text/javascript">
-
-        //Slides
-        $(document).ready(function () {
-            $('.slider').slider({ full_width: true });
-        });
-        //Paralax
-        $(document).ready(function () {
-            $('.parallax').parallax();
-        });
-        //Modal
-        $(document).ready(function () {
-            $('.modal').modal();
-        });
-
-    </script>
 </body>
 </html>
     <?php 

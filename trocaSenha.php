@@ -1,4 +1,7 @@
-<?php 
+<?php
+/**
+ * Arquivo de troca de senha atraves do perfil do usuario.
+ */ 
 ob_start();
 
 include "validaCookie.php";

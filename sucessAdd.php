@@ -1,4 +1,7 @@
-<?php 
+<?php
+/**
+ * Pagina que exibe em tela uma mensagem de sucesso ao adicionar uma receita ou despesa
+ */ 
 include_once "validaCookie.php";
 
 $tipo = $_GET["tipo"];
