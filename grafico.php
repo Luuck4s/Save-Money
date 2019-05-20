@@ -374,7 +374,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="logOut.php">Sair
+                        <a href="logout.php">Sair
                             <i class="material-icons right">exit_to_app</i>
                         </a>
                     </li>
@@ -434,7 +434,7 @@
                 </a>
             </li>
             <li>
-                <a href="logOut.php">Sair
+                <a href="logout.php">Sair
                     <i class="material-icons left">exit_to_app</i>
                 </a>
             </li>
