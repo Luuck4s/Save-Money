@@ -500,7 +500,7 @@ $anoAtual = date("Y");
                     </div>
                     <div class="card-action">
                         <center>
-                            <a href="incluir.php?tipo=R">
+                            <a href="incluir.php?tipo=<?= $tipoR ?>">
                                 <button class="waves-effect waves-light btn-small blue darken-2">Adicionar uma Receita</button>
                             </a>
                         </center>
@@ -517,7 +517,7 @@ $anoAtual = date("Y");
                     </div>
                     <div class="card-action">
                         <center>
-                            <a href="incluir.php?tipo=D">
+                            <a href="incluir.php?tipo=<?= $tipoD ?>">
                                 <button class="waves-effect waves-light btn-small blue darken-2">Adicionar uma Despesa</button>
                             </a>
                         </center>
