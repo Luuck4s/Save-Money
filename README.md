@@ -6,13 +6,11 @@
 
 
 
-# About the project
+# Sobre o projeto 
 
-Save money is a personal expense control project online, showing the actual time spent, generating interactive 
-graphs and table formatted PDFs. Its main objective is to facilitate the control of expenses, and it is not necessary 
-to use extensive and complex notebooks or worksheets.
+Save money é um projeto pessoal de controle de gastos, ou seja, ao invés de se utilizar cadernos ou planilhas complexas você pode manter o controle de seus gastos online de maneira fácil e rápida, tendo acesso a gráficos gerados em tempo real e PDFs.
 
 
-## About the Development
+## Sobre o Desenvolvimento
 
- Save Money was developed for learning purposes and greater mastery of the languages used in the development.
+ Save Money foi desenvolvido para fins de aprendizagem, como já citado é apenas um projeto pessoal.
