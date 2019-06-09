@@ -18,5 +18,5 @@ Save money é um projeto pessoal de controle de gastos, ou seja, ao invés de se
  
  ## Desenvolvedores 
  
- Lucas Andrade de Lima 
- Maria Carolina Martins 
+ <strong>Lucas Andrade de Lima</strong><br>
+ <strong>Maria Carolina Martins</strong> 
