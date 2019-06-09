@@ -14,3 +14,9 @@ Save money é um projeto pessoal de controle de gastos, ou seja, ao invés de se
 ## Sobre o Desenvolvimento
 
  Save Money foi desenvolvido para fins de aprendizagem, como já citado é apenas um projeto pessoal.
+ 
+ 
+ ## Desenvolvedores 
+ 
+ Lucas Andrade de Lima 
+ Maria Carolina Martins 
