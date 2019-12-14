@@ -1,22 +1,23 @@
+# Save Money 
 
-<p align="center">
-  <img src="Img/SaveMoney.png" width="300">
-  www.savemoney.ml
-</p>
-
-
-
-# Sobre o projeto 
-
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![Página Inicial](https://github.com/Luuck4s/Save-Money/blob/master/Img/Home.jpg?raw=true)
+![Página Inicial Logado](https://github.com/Luuck4s/Save-Money/blob/master/Img/Home_Loged.jpg?raw=true)
+![Gráficos](https://github.com/Luuck4s/Save-Money/blob/master/Img/graficos.jpg?raw=true)
 Save money é um projeto pessoal de controle de gastos, ou seja, ao invés de se utilizar cadernos ou planilhas complexas você pode manter o controle de seus gastos online de maneira fácil e rápida, tendo acesso a gráficos gerados em tempo real e PDFs.
 
+# Sobre o Desenvolvimento!
+  - Save Money foi desenvolvido para fins de <b>aprendizagem</b>, como já citado é apenas um projeto pessoal.
+  
+    ### Tecnologias utlizadas 
+    - HTML
+    - JavaScript
+    - Materialize
+    - PHP
+    - MySql
 
-## Sobre o Desenvolvimento
 
- Save Money foi desenvolvido para fins de aprendizagem, como já citado é apenas um projeto pessoal.
- 
- 
- ## Desenvolvedores 
- 
- <strong>Lucas Andrade de Lima</strong><br>
- <strong>Maria Carolina Martins</strong> 
+## Utilização
+
+Caso você queira testar o projeto, ele está disponivel para testar a partir deste [link](https://savemoney.ml/).
+
