@@ -1,6 +1,5 @@
 # Save Money 
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 ![Página Inicial](https://github.com/Luuck4s/Save-Money/blob/master/Img/Home.jpg?raw=true)
 ![Página Inicial Logado](https://github.com/Luuck4s/Save-Money/blob/master/Img/Home_Loged.jpg?raw=true)
 ![Gráficos](https://github.com/Luuck4s/Save-Money/blob/master/Img/graficos.jpg?raw=true)
